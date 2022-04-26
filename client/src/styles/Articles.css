@@ -1,0 +1,15 @@
+.article {
+    background-color: lightblue;
+    border-radius:1rem;
+    padding:.5rem;
+    display: inline-block;
+}
+
+.article h1,
+.article h3 {
+    margin:0;
+}
+
+.article span {
+    float:right;
+}

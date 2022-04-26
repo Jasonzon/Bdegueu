@@ -1,0 +1,14 @@
+.error {
+    display:flex;
+    flex-direction:column;
+    margin-left:50%;
+    transform: translateX(-50%);
+    font-size:3rem;
+    text-align: center;
+    margin-top:7rem;
+}
+
+.error > h1,
+.error > h2 {
+    margin: 1rem 0;
+}

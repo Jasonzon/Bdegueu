@@ -1,0 +1,52 @@
+.connection {
+    display:flex;
+    justify-content:space-between;
+    margin:0 1rem;
+}
+
+.connection > button {
+    border:none;
+    background-color:lightblue;
+    height:4rem;
+    border-radius:.25rem;
+    margin-top:.6rem;
+    cursor:pointer;
+    width:clamp(8rem,15%,13rem);
+    white-space: nowrap;
+    margin-left:2rem;
+}
+
+.connection > button:hover {
+    background-color:blue;
+}
+
+form {
+    background-color:lightblue;
+    display:inline-block;
+    padding:2rem;
+    border-radius:.25rem;
+    margin-left:50%;
+    transform: translateX(-50%);
+    text-align:center;
+}
+
+form > input {
+    font-size:1.5rem;
+    margin-bottom:1.5rem;
+}
+
+form > label {
+    font-size:2rem;
+}
+
+form > button {
+    background-color:#00BFFA;
+    padding:.5rem;
+    border-radius:.25rem;
+    border:none;
+}
+
+form > button:hover {
+    cursor:pointer;
+    background-color:white;
+}
