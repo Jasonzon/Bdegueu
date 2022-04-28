@@ -39,12 +39,14 @@ function Comments({user, setUser, comment_id}) {
                     </li> : null } </>
                 )}
             </ul>
-            <div className="navigation">
-                <button>1</button>
-                {comments.length/10 > indexPage ? <button onClick={setIndexPage(indexPage+1)}>{">"}</button> : <button disabled>{">"}</button> }
-                <span>{indexPage}</span>
-                {indexPage === 1 ? <button disabled>{"<"}</button> : <button onClick={setIndexPage(indexPage-1)}>{"<"}</button> }
-                <button>{comments.length < 11 ? 1 : parseInt(comments.length/10)}</button>
+            <div className="numbers">
+                <div className="navigation">
+                    <button>1</button>
+                    {comments.length/10 > indexPage ? <button onClick={setIndexPage(indexPage+1)}>{">"}</button> : <button disabled>{">"}</button> }
+                    <span>{indexPage}</span>
+                    {indexPage === 1 ? <button disabled>{"<"}</button> : <button onClick={setIndexPage(indexPage-1)}>{"<"}</button> }
+                    <button>{comments.length < 11 ? 1 : parseInt(comments.length/10)}</button>
+                </div>
             </div>
         </div>
     )

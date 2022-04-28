@@ -19,15 +19,16 @@ function Article({user, setUser}) {
         likes:0,
         dislikes:0
     })
+
     const [liked, setLiked] = useState(0)
+    const [nbLikes, setNbLikes] = useState(0)
+    const [nbDislikes, setNbDislikes] = useState(0)
 
     async function getArticle() {
         const res = await fetch(`http://localhost:5000/article/id/${id}`, {
             method: "GET"
         })
-        console.log(res)
         const parseRes = await res.json()
-        console.log(parseRes)
         setArticle({
             name:parseRes.article_name,
             type:parseRes.article_type,
@@ -37,17 +38,17 @@ function Article({user, setUser}) {
             likes:parseRes.article_likes,
             dislikes:parseRes.article_dislikes
         })
-        getLikes()
     }
 
     async function getLikes() {
-        const res = await fetch(`http://localhost:5000/likes_article/id/${id}`, {
+        const res = await fetch(`http://localhost:5000/likes_article/article/${id}`, {
             method: "GET"
         })
         const parseRes = await res.json()
-        parseRes.filter((like) => user && like.likes_polyuser === user.polyuser_id)
-        if (parseRes.length !== 0) {
-            if (parseRes[0].likes_liked) {
+        parseRes.map(({likes_liked}) => likes_liked ? setNbLikes(nbLikes+1) : setNbDislikes(nbDislikes+1))
+        const slice = parseRes.slice("").filter(({likes_polyuser}) => user && user.polyuser_id === likes_polyuser)
+        if (slice.length !== 0) {
+            if (slice[0].likes_liked) {
                 setLiked(1)
             }
             else {
@@ -67,9 +68,75 @@ function Article({user, setUser}) {
         setComments(parseRes)
     }
 
+    async function addLike(int) {
+        setLiked(int)
+        const res = await fetch(`http://localhost:5000/likes_article/article/${id}`, {
+            method: "GET"
+        })
+        const parseRes = await res.json()
+        const slice = parseRes.slice("").filter(({likes_polyuser}) => user && user.polyuser_id === likes_polyuser)
+        if (slice.length !== 0) {
+            if (int === 1) {
+                setNbLikes(nbLikes+1)
+                setNbDislikes(nbDislikes-1)
+            }
+            else {
+                setNbDislikes(nbDislikes+1)
+                setNbLikes(nbLikes-1)
+            }
+            const body = {liked:int === -1 ? false : true,polyuser:user.polyuser_id,article:id}
+            const res2 = await fetch(`http://localhost:5000/likes_article/id/${slice[0].likes_id}`, {
+                method: "PUT",
+                headers: {"Content-Type" : "application/json"},
+                body:JSON.stringify(body)
+            })
+            const parseRes2 = await res2.json()
+            console.log(parseRes2)  
+        }
+        else {
+            if (int === 1) {
+                setNbLikes(nbLikes+1)
+            }
+            else {
+                setNbDislikes(nbDislikes+1)
+            }
+            const body = {liked:int === -1 ? false : true,polyuser:user.polyuser_id,article:id}
+            const res2 = await fetch("http://localhost:5000/likes_article", {
+                method: "POST",
+                headers: {"Content-Type" : "application/json"},
+                body:JSON.stringify(body)
+            })
+            const parseRes2 = await res2.json()
+            console.log(parseRes2)  
+        }
+    }
+
+    async function deleteLike(int) {
+        if (int === 1) {
+            setNbLikes(nbLikes-1)
+        }
+        else {
+            setNbDislikes(nbDislikes-1)
+        }
+        const res = await fetch(`http://localhost:5000/likes_article/article/${id}`, {
+            method: "GET"
+        })
+        const parseRes = await res.json() 
+        const slice = parseRes.slice("").filter(({likes_polyuser}) => user && user.polyuser_id === likes_polyuser)
+        const res2 = await fetch(`http://localhost:5000/likes_article/id/${slice[0].likes_id}`, {
+            method: "DELETE"
+        })
+    }
+
     useEffect(() => {
         getArticle()
     },[])
+
+    useEffect(() => {
+        if (user && user.polyuser_name) {
+            getLikes()
+        }
+    },[user])
 
     return (
         <div>
@@ -78,17 +145,20 @@ function Article({user, setUser}) {
                 <h2>{article.type}</h2>
                 <img src={article.pic} alt="pic"/>
                 <p>{article.description}</p>
-                <span>{article.time}</span>
+                {user && user.polyuser_name ?
                 <div className="thumbs">
                     <div className="like">
                         <span>J'AIME</span>
-                        {liked === 1 ? <img src={Liked} alt="liked" width="20" height="20"/> : <img src={Like} alt="like" width="20" height="20"/> }
+                        {liked === 1 ? <img onClick={() => {setLiked(0);deleteLike(1)}} src={Liked} alt="liked" width="20" height="20"/> : <img onClick={() => {addLike(1)}} src={Like} alt="like" width="20" height="20"/> }
+                        <span>{nbLikes}</span>
                     </div>
                     <div className="dislike">
                         <span>JE N'AIME PAS</span>
-                        {liked === -1 ? <img src={Disliked} alt="disliked" width="20" height="20"/> : <img src={Dislike} alt="dislike" width="20" height="20"/> }
+                        {liked === -1 ? <img onClick={() => {setLiked(0);deleteLike(-1)}} src={Disliked} alt="disliked" width="20" height="20"/> : <img onClick={() => {addLike(-1)}} src={Dislike} alt="dislike" width="20" height="20"/> }
+                        <span>{nbDislikes}</span>
                     </div>
-                </div>
+                </div> : <span className="connect">Connectez vous pour donner votre avis</span> }
+                <span className="tim">{article.time.substr(0, 10)}</span>
             </div>
             <Comments user={user} setUser={setUser} comment_id={id} />
         </div>

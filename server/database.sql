@@ -4,7 +4,7 @@ CREATE TABLE polyuser(
     polyuser_id SERIAL PRIMARY KEY,
     polyuser_name VARCHAR(255) NOT NULL,
     polyuser_role VARCHAR(255) NOT NULL DEFAULT 'basic',
-    polyuser_mail VARCHAR(255) NOT NULL,
+    polyuser_mail VARCHAR(255) UNIQUE NOT NULL,
     polyuser_password VARCHAR(255) NOT NULL,
     polyuser_description VARCHAR(500) NOT NULL DEFAULT 'pas de description'
 );

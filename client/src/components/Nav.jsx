@@ -9,12 +9,12 @@ function Nav() {
             <nav>
                 <img src={Logo} width="55" height="55" alt="bdegueu"/>
                 <ul className="navbar">
-                    <li><Link to="/">Accueil</Link></li>
-                    <li><Link to="/rezo">Rezo</Link></li>
-                    <li><Link to="/articles">Articles</Link></li>
-                    <li><Link to="/goodies">Goodies</Link></li>
-                    <li><Link to="/comments">Commentaires</Link></li>
-                    <li><Link to="/account">Compte</Link></li>
+                    <li><Link className="link" to="/">Accueil</Link></li>
+                    <li><Link className="link" to="/rezo">Rezo</Link></li>
+                    <li><Link className="link" to="/articles">Articles</Link></li>
+                    <li><Link className="link" to="/goodies">Goodies</Link></li>
+                    <li><Link className="link" to="/comments">Commentaires</Link></li>
+                    <li><Link className="link" to="/account">Compte</Link></li>
                 </ul>
             </nav>
         </div>

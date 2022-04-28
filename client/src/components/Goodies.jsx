@@ -1,9 +1,12 @@
 import "../styles/Goodies.css"
 
-function Goodies() {
+function Goodies({user, setUser}) {
     return (
         <div>
-            <h1 className="title">Goodies</h1>
+            <div className="connection">
+                <h1 className="title">Goodies</h1>
+                {user && user.polyuser_role === "admin" ? <button>Ajouter</button> : null}
+            </div>
         </div>
     )
 }

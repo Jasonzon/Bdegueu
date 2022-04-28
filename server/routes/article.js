@@ -40,8 +40,8 @@ router.get("/name/:id", async (req,res) => {
 
 router.post("/", async (req,res) => {
     try {
-        const {name, type, pic, description, likes, dislikes} = req.body
-        const newArticle = await pool.query("INSERT INTO article (article_name, article_type, article_pic, article_description, article_likes, article_dislikes) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *", [name, type, pic, description, likes, dislikes])
+        const {name, type, pic, description} = req.body
+        const newArticle = await pool.query("INSERT INTO article (article_name, article_type, article_pic, article_description) VALUES ($1, $2, $3, $4) RETURNING *", [name, type, pic, description])
         res.json(newArticle.rows[0])
 
     } catch (err) {
@@ -54,8 +54,8 @@ router.post("/", async (req,res) => {
 router.put("/id/:id", async (req,res) => {
     try {
         const {id} = req.params
-        const {name, type, pic, description, likes, dislikes} = req.body
-        const updateArticle = await pool.query("UPDATE article SET article_name = $2, article_type = $3, article_pic = $4, article_description = $5, article_likes = $6, article_dislikes = $7 WHERE article_id = $1",[id, name, type, pic, description, likes, dislikes])
+        const {name, type, pic, description} = req.body
+        const updateArticle = await pool.query("UPDATE article SET article_name = $2, article_type = $3, article_pic = $4, article_description = $5 WHERE article_id = $1",[id, name, type, pic, description])
     } catch (err) {
         console.error(err.message)
     }

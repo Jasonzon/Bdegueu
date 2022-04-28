@@ -1,9 +1,12 @@
 import "../styles/Rezo.css"
 
-function Rezo() {
+function Rezo({user, setUser}) {
     return (
         <div>
-            <h1 className="title">Rezo</h1>
+            <div className="connection">
+                <h1 className="title">Rezo</h1>
+                {user && user.polyuser_role === "admin" ? <button>Ajouter</button> : null}
+            </div>
         </div>
     )
 }

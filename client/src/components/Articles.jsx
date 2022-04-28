@@ -17,18 +17,21 @@ function Articles({user, setUser}) {
     useEffect(() => {
         getArticles()
     },[])
+    
     return (
         <div>
-            <h1 className="title">Articles</h1>
-            {user && user.polyuser_role === "admin" ? <button>AJOUTER</button> : null }
+            <div className="connection">
+                <h1 className="title">Articles</h1>
+                {user && user.polyuser_role === "admin" ? <button>Ajouter</button> : null}
+            </div>
             <ul>
             {articles.map(({article_name, article_type, article_id, created_at}) => 
-                <li className="article" key={article_id}>
+                <li className="articles" key={article_id}>
                     <Link to={`/articles/${article_id}`}>
-                        <h1>{article_name}</h1>
+                        <h1>{article_name}</h1><br/>
+                        <h3>{article_type}</h3>
+                        <span>{created_at.substr(0, 10)}</span>
                     </Link>
-                    <h3>{article_type}</h3>
-                    <span>{created_at.substr(0, 10)}</span>
                 </li>
             )}
             </ul>

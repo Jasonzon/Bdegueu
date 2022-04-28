@@ -28,12 +28,29 @@ ul {
     list-style: none;
 }
 
-@media screen and (max-width: 454px) {
+@media screen and (max-width: 690px) {
     nav > img {
         display:none;
+    }
+    .navbar {
+        padding:0 2vw;
+    }
+    nav ul {
+        gap:clamp(.5rem, 2vw, 1.25rem);
+    }
+}
+
+@media screen and (max-width: 620px) {
+    nav li {
+        font-size:clamp(.75rem, 5.5vw, 2rem);
     }
 }
 
 .navbar {
     margin:1rem 0;
+}
+
+.link:hover {
+    color:white;
+    cursor:pointer;
 }

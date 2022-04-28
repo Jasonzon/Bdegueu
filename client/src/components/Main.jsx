@@ -8,12 +8,31 @@ import Articles from "./Articles"
 import Comments from "./Comments"
 import Compte from "./Compte"
 import Article from "./Article"
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function Main() {
 
     const [user, setUser] = useState({})
     const [connection, setConnection] = useState(true)
+
+    async function auth() {
+        if (localStorage.token) {
+            const res = await fetch("http://localhost:5000/polyuser/auth", {
+                method: "GET",
+                headers: {token: localStorage.token}
+            })
+            const parseRes = await res.json()
+            const res2 = await fetch(`http://localhost:5000/polyuser/id/${parseRes.polyuser_id}`, {
+                method: "GET"
+            })
+            const parseRes2 = await res2.json()
+            setUser(parseRes2)
+        }
+    }
+
+    useEffect(() => {
+        auth()
+    },[])
 
     return (
         <Router>

@@ -1,19 +1,22 @@
 .connection {
     display:flex;
     justify-content:space-between;
-    margin:0 1rem;
+    margin:0 2rem;
 }
 
 .connection > button {
     border:none;
     background-color:lightblue;
-    height:4rem;
+    height:3.5rem;
     border-radius:.25rem;
-    margin-top:.6rem;
+    margin-top:2rem;
     cursor:pointer;
-    width:clamp(8rem,15%,13rem);
+    width:clamp(11rem,15%,15rem);
     white-space: nowrap;
     margin-left:2rem;
+    font-family: coolvetica;
+    font-size:2rem;
+    box-shadow: 0px 0px 8px rgba(0,0,0,.2);
 }
 
 .connection > button:hover {
@@ -26,17 +29,21 @@ form {
     padding:2rem;
     border-radius:.25rem;
     margin-left:50%;
-    transform: translateX(-50%);
+    transform: translate(-50%,-3%);
     text-align:center;
+    box-shadow: 0px 0px 8px rgba(0,0,0,.2);
 }
 
 form > input {
     font-size:1.5rem;
-    margin-bottom:1.5rem;
+    margin-bottom:.5rem;
+    font-family:coolvetica;
+    font-size:2.5rem;
+    box-shadow: 0px 0px 8px rgba(0,0,0,.1);
 }
 
 form > label {
-    font-size:2rem;
+    font-size:2.5rem;
 }
 
 form > button {
@@ -44,9 +51,33 @@ form > button {
     padding:.5rem;
     border-radius:.25rem;
     border:none;
+    font-family:coolvetica;
+    font-size:2rem;
+    margin-top:1.5rem;
+    box-shadow: 0px 0px 8px rgba(0,0,0,.1);
 }
 
 form > button:hover {
     cursor:pointer;
     background-color:white;
+}
+
+.connection > h1 {
+    font-size:4.5rem;
+    margin-top:.65rem;
+    white-space: nowrap;
+}
+
+form > input:invalid {
+    color:#484848;
+}
+
+@media screen and (max-width: 510px) {
+    .connection > h1 {
+        font-size:3rem;
+        margin-top:1.75rem;
+    }
+    .connection > button {
+        margin-left:.2rem;
+    }
 }

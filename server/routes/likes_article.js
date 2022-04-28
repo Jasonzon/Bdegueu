@@ -6,7 +6,7 @@ const pool = require("../db")
 router.get("/article/:id", async (req,res) => {
     try {
         const {id} = req.params
-        const allLikes = await pool.query("SELECT * FROM likes_article WHERE likes_article = &1",[id])
+        const allLikes = await pool.query("SELECT * FROM likes_article WHERE likes_article = $1",[id])
         res.json(allLikes.rows)
     } catch (err) {
         console.error(err.message)

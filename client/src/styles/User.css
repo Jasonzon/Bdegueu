@@ -1,0 +1,92 @@
+.perso {
+    background-color:lightblue;
+    border-radius:.5rem;
+    margin-top:-1rem;
+    margin-left:50%;
+    transform: translateX(-50%);
+    text-align:center;
+    font-size:2rem;
+    padding:1rem;
+    box-shadow: 0px 0px 8px rgba(0,0,0,.2);
+    min-width:290px;
+    display:flex;
+    flex-direction: column;
+    width:80%;
+}
+
+.perso > p,
+.perso > h1,
+.perso > h2, 
+.perso > h3 {
+    margin: 1rem 0;
+}
+
+.perso > input {
+    font-family:coolvetica;
+    background-color: lightblue;
+    border:1px solid black;
+    border-radius:.25rem;
+    text-align: center;
+    box-shadow: 0px 0px 8px rgba(0,0,0,.2);
+    margin-left:50%;
+    transform: translateX(-50%);
+}
+
+.user1 {
+    font-size:4rem;
+    margin-top:.9rem;
+    font-weight:bold;
+}
+
+.user2 {
+    font-size:3rem;
+    margin-top:1.75rem;
+    font-weight:bold;
+    margin-bottom:.9rem;
+}
+
+.user3 {
+    font-size:2rem;
+    margin-top:.9rem;
+    margin-bottom:.9rem;
+}
+
+.perso > img:hover {
+    cursor:pointer;
+    border:2px solid black;
+}
+
+.perso > img {
+    position:absolute;
+    right:1rem;
+    border:2px solid transparent;
+    border-radius:.5rem;
+}
+
+@media screen and (max-width: 700px) {
+    .perso {
+        font-size:1.6rem;
+    }
+    .user1 {
+        font-size:3.2rem;
+        margin-top:.9rem;
+        padding-left:.25rem;
+        font-weight:bold;
+    }
+    
+    .user2 {
+        font-size:2.4rem;
+        margin-top:1.75rem;
+        font-weight:bold;
+        margin-bottom:.9rem;
+        padding-left:.15rem;
+        width:fit-content;
+    }
+    
+    .user3 {
+        font-size:1.6rem;
+        margin-top:.9rem;
+        padding-left:.25rem;
+        margin-bottom:.9rem;
+    }
+}

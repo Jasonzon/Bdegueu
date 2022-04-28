@@ -8,8 +8,8 @@ function Compte({user, setUser, connection, setConnection}) {
     return (
         <div>
             {!user.polyuser_name ? <> {connection ? 
-                <Connection connection={connection} setConnection={setConnection} /> : 
-                <Register connection={connection} setConnection={setConnection}/> } </> : 
+                <Connection connection={connection} setConnection={setConnection} user={user} setUser={setUser}/> : 
+                <Register connection={connection} setConnection={setConnection} user={user} setUser={setUser} /> } </> : 
                 <User user={user} setUser={setUser} /> }
         </div>
     )
