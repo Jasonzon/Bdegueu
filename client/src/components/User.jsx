@@ -2,6 +2,7 @@ import "../styles/User.css"
 import {useState} from "react"
 import Pen from "../assets/pen.png"
 import Cross from "../assets/cross.png"
+import Tick from "../assets/tick.png"
 
 function User({user, setUser}) {
 
@@ -10,8 +11,41 @@ function User({user, setUser}) {
         setUser({})
     }
 
+    const [holder, setHolder] = useState("")
+    const [holder2, setHolder2] = useState("")
+
     const [modify, setModify] = useState(false)
     const [inputs, setInputs] = useState({mail:user.polyuser_mail,pseudo:user.polyuser_name,description:user.polyuser_description})
+
+    async function update() {
+        if (inputs.mail === "") {
+            setHolder("Entrez une adresse mail")
+        }
+        if (inputs.pseudo === "") {
+            setHolder2("Entrez un pseudo")
+        }
+        if (inputs.pseudo !== "" && inputs.mail !== "") {
+            const res = await fetch(`http://localhost:5000/polyuser/mail/${inputs.mail}`, {
+                method: "GET"
+            })
+            const parseRes = await res.json()
+            if (parseRes.rows.length === 0 || parseRes.rows[0].polyuser_mail === inputs.mail) {
+                const body = {name:inputs.pseudo, mail:inputs.mail, description:inputs.description}
+                const res2 = await fetch(`http://localhost:5000/polyuser/id/${parseRes.rows[0].polyuser_id}`, {
+                    method: "PUT",
+                    headers: {"Content-Type" : "application/json"},
+                    body:JSON.stringify(body)
+                })
+                const parseRes2 = await res2.json()
+                setUser(parseRes2)
+                setModify(false)
+            }
+            else {
+                setInputs({mail:"", pseudo:inputs.pseudo, description:inputs.description})
+                setHolder("Mail déjà utilisé")
+            }
+        }
+    }
 
     return (
         <div>
@@ -21,8 +55,9 @@ function User({user, setUser}) {
             </div>
             <div className="perso">
                 {modify ? <img onClick={() => {setModify(false);setInputs({mail:user.polyuser_mail,pseudo:user.polyuser_name,description:user.polyuser_description})}} src={Cross} alt="cross" width="50" height="50"/> : <img onClick={() => setModify(true)} src={Pen} alt="pen" width="50" height="50" />}
-                {modify ? <input className="user1" value={inputs.pseudo} onChange={(e) => setInputs({mail:inputs.mail, pseudo:e.target.value, description:inputs.description})}/> : <h1>{user.polyuser_name}</h1>}
-                {modify ? <input className="user2" value={inputs.mail} onChange={(e) => setInputs({mail:e.target.value, pseudo:inputs.pseudo, description:inputs.description})}/> : <h2>{user.polyuser_mail}</h2>}
+                {modify ? <img onClick={() => update()} className="img2" src={Tick} alt="tick" width="40" height="40"/> : null}
+                {modify ? <input placeholder={holder2} className="user1" value={inputs.pseudo} onChange={(e) => setInputs({mail:inputs.mail, pseudo:e.target.value, description:inputs.description})}/> : <h1>{user.polyuser_name}</h1>}
+                {modify ? <input placeholder={holder} type="email" className="user2" value={inputs.mail} onChange={(e) => setInputs({mail:e.target.value, pseudo:inputs.pseudo, description:inputs.description})}/> : <h2>{user.polyuser_mail}</h2>}
                 <h3>Rôle : {user.polyuser_role}</h3>
                 {modify ? <input className="user3" value={inputs.description} onChange={(e) => setInputs({mail:inputs.mail, pseudo:inputs.pseudo, description:e.target.value})}/> : <p>{user.polyuser_description}</p>}
             </div>

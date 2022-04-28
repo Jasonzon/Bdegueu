@@ -87,8 +87,9 @@ router.post("/", async (req,res) => {
 router.put("/id/:id", async (req,res) => {
     try {
         const {id} = req.params
-        const {name, mail, password, description} = req.body
-        const updatePolyuser = await pool.query("UPDATE polyuser SET polyuser_name = $2, polyuser_mail = $3, polyuser_password = $4, polyuser_description = $5 WHERE polyuser_id = $1",[id, name, mail, password, description])
+        const {name, mail, description} = req.body
+        const updatePolyuser = await pool.query("UPDATE polyuser SET polyuser_name = $2, polyuser_mail = $3, polyuser_description = $4 WHERE polyuser_id = $1 RETURNING *",[id, name, mail, description])
+        res.json(updatePolyuser.rows[0])
     } catch (err) {
         console.error(err.message)
     }
