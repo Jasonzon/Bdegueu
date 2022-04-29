@@ -17,7 +17,7 @@ function Articles({user, setUser}) {
     useEffect(() => {
         getArticles()
     },[])
-    
+
     return (
         <div>
             <div className="connection">
@@ -25,7 +25,7 @@ function Articles({user, setUser}) {
                 {user && user.polyuser_role === "admin" ? <button>Ajouter</button> : null}
             </div>
             <ul>
-            {articles.map(({article_name, article_type, article_id, created_at}) => 
+            {articles.slice("").filter((article,index) => index !== 0).map(({article_name, article_type, article_id, created_at}) => 
                 <li className="articles" key={article_id}>
                     <Link to={`/articles/${article_id}`}>
                         <h1>{article_name}</h1><br/>

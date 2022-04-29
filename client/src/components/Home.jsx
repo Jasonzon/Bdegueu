@@ -29,7 +29,7 @@ function Home() {
     <div>
       <h1 className="little-title">Derniers articles</h1>
       <ul>
-      {articles.map(({article_name, article_type, article_id, created_at},index) => <> {index > 2 ? null :
+      {articles.slice("").filter((article,index) => index !== 0).reverse().map(({article_name, article_type, article_id, created_at},index) => <> {index > 2 ? null :
           <li className="articles" key={index}>
               <Link to={`/articles/${article_id}`}>
                   <h1>{article_name}</h1><br/>

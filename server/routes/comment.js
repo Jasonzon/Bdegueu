@@ -40,8 +40,8 @@ router.get("/article/:id", async (req,res) => {
 
 router.post("/", async (req,res) => {
     try {
-        const {description, likes, dislikes, polyuser, article} = req.body
-        const newComment = await pool.query("INSERT INTO comment (comment_article, comment_polyuser, comment_description, comment_likes, comment_dislikes) VALUES ($1, $2, $3, $4, $5) RETURNING *", [article, polyuser, description, likes, dislikes])
+        const {description,polyuser, article} = req.body
+        const newComment = await pool.query("INSERT INTO comment (comment_article, comment_polyuser, comment_description) VALUES ($1, $2, $3) RETURNING *", [article, polyuser, description])
         res.json(newComment.rows[0])
 
     } catch (err) {

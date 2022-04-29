@@ -54,8 +54,8 @@ function User({user, setUser}) {
                 <button onClick={() => logout()}>Se déconnecter</button>
             </div>
             <div className="perso">
-                {modify ? <img onClick={() => {setModify(false);setInputs({mail:user.polyuser_mail,pseudo:user.polyuser_name,description:user.polyuser_description})}} src={Cross} alt="cross" width="50" height="50"/> : <img onClick={() => setModify(true)} src={Pen} alt="pen" width="50" height="50" />}
-                {modify ? <img onClick={() => update()} className="img2" src={Tick} alt="tick" width="40" height="40"/> : null}
+                {modify ? <img title="annuler" onClick={() => {setModify(false);setInputs({mail:user.polyuser_mail,pseudo:user.polyuser_name,description:user.polyuser_description})}} src={Cross} alt="cross" width="50" height="50"/> : <img title="modifier" onClick={() => setModify(true)} src={Pen} alt="pen" width="50" height="50" />}
+                {modify ? <img title="valider" onClick={() => update()} className="img2" src={Tick} alt="tick" width="40" height="40"/> : null}
                 {modify ? <input placeholder={holder2} className="user1" value={inputs.pseudo} onChange={(e) => setInputs({mail:inputs.mail, pseudo:e.target.value, description:inputs.description})}/> : <h1>{user.polyuser_name}</h1>}
                 {modify ? <input placeholder={holder} type="email" className="user2" value={inputs.mail} onChange={(e) => setInputs({mail:e.target.value, pseudo:inputs.pseudo, description:inputs.description})}/> : <h2>{user.polyuser_mail}</h2>}
                 <h3>Rôle : {user.polyuser_role}</h3>
