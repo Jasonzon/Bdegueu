@@ -11,8 +11,12 @@
 }
 
 .articles h1,
-.articles h3 {
+.articles h2 {
     margin:0;
+}
+
+.articles h2 {
+    margin-top:-1rem;
 }
 
 .articles span {
@@ -22,5 +26,5 @@
 
 .articles:hover {
     cursor:pointer;
-    background-color:blue;
+    background-color:skyblue;
 }

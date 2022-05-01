@@ -13,16 +13,18 @@ CREATE TABLE goodies(
     goodies_id SERIAL PRIMARY KEY,
     goodies_name VARCHAR(255) NOT NULL,
     goodies_pic VARCHAR(500) NOT NULL,
-    goodies_price INT
+    goodies_price VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE evt(
-    evt_id SERIAL PRIMARY KEY,
-    evt_pic VARCHAR(500) NOT NULL,
-    evt_name VARCHAR(255) NOT NULL,
-    evt_city VARCHAR(255) NOT NULL,
-    evt_date VARCHAR(255) NOT NULL,
-    evt_description VARCHAR(5000) NOT NULL,
+CREATE TABLE rezo(
+    rezo_id SERIAL PRIMARY KEY,
+    rezo_pic VARCHAR(500) NOT NULL,
+    rezo_name VARCHAR(255) NOT NULL,
+    rezo_city VARCHAR(255) NOT NULL,
+    rezo_date VARCHAR(255) NOT NULL,
+    rezo_adh INT NOT NULL,
+    rezo_nonadh INT NOT NULL,
+    rezo_description VARCHAR(5000) NOT NULL,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 

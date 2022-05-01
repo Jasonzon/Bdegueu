@@ -1,5 +1,32 @@
 .little-title {
-    margin-top:1rem;
+    margin-top:0;
     margin-left:1rem;
     font-size:2.5rem;;
+}
+
+.hom {
+    margin:0 1rem;
+    font-size:1.75rem;
+}
+/*text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;*/
+
+/*
+.log {
+    width:clamp(200px, 80vw, 800px);;
+    height:clamp(200px, 80vw, 800px);
+    position:absolute;
+    top:clamp(8rem, 25vw, 20rem);
+    bottom:0;
+    left:0;
+    right:0;
+    margin:auto;
+    z-index:-1;
+    opacity: .9;
+}*/
+
+.log {
+    width: 75%;
+    height:75%;
+    margin-left:50%;
+    transform:translateX(-50%);
 }

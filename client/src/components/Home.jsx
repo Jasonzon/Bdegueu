@@ -1,6 +1,7 @@
 import '../styles/Home.css';
 import {useState, useEffect} from "react"
 import {Link} from "react-router-dom"
+import Logo from "../assets/bdegueu2.png"
 
 function Home() {
 
@@ -25,18 +26,23 @@ function Home() {
 
   return (
   <div>
-    <h1 className="little-title">Le site non officiel de votre école préférée</h1>
+    <h1 className="little-title">BDEgueu</h1>
+    <p className="hom">A chaque BDE son BDEgueu ! Ici tu trouveras des infos sur les activités bédéhiques de ton école mais aussi :<br/>
+      - Des goodies inédits <br/>
+      - Du rézo <br/>
+      Et bien-sûr tu peux donner ton avis
+    </p>
+    <img className="log" src={Logo} alt="logo" />
     <div>
       <h1 className="little-title">Derniers articles</h1>
-      <ul>
+      <ul className="coco">
       {articles.slice("").filter((article,index) => index !== 0).reverse().map(({article_name, article_type, article_id, created_at},index) => <> {index > 2 ? null :
+          <Link to={`/articles/${article_id}`}>
           <li className="articles" key={index}>
-              <Link to={`/articles/${article_id}`}>
-                  <h1>{article_name}</h1><br/>
-              <h3>{article_type}</h3>
+              <h1>{article_name}</h1><br/>
+              <h2>{article_type}</h2>
               <span>{created_at.substr(0, 10)}</span>
-              </Link>
-          </li> } </>
+          </li></Link> } </>
       )}
       </ul>
     </div>

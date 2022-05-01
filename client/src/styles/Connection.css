@@ -20,7 +20,7 @@
 }
 
 .connection > button:hover {
-    background-color:blue;
+    background-color:skyblue;
 }
 
 form {
@@ -47,7 +47,7 @@ form > label {
 }
 
 form > button {
-    background-color:#00BFFA;
+    background-color:cornflowerblue;
     padding:.5rem;
     border-radius:.25rem;
     border:none;
@@ -59,7 +59,7 @@ form > button {
 
 form > button:hover {
     cursor:pointer;
-    background-color:white;
+    background-color:deepskyblue;
 }
 
 .connection > h1 {

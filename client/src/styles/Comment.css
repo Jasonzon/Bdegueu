@@ -15,12 +15,6 @@
     font-size:2rem;
 }
 
-.timee {
-    position: absolute;
-    right:1rem;
-    bottom:1rem;
-}
-
 .thumbs span {
     font-size:1.25rem;
 }
@@ -29,6 +23,6 @@
     margin:.5rem 0;
 }
 
-.comment > span {
-    white-space: nowrap;
+.connect {
+    padding-right:25%;
 }

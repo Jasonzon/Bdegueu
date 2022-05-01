@@ -91,7 +91,6 @@ function Article({user, setUser}) {
                 body:JSON.stringify(body)
             })
             const parseRes2 = await res2.json()
-            console.log(parseRes2)  
         }
         else {
             if (int === 1) {

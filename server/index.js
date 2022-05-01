@@ -15,7 +15,7 @@ app.use("/article", require("./routes/article"))
 
 app.use("/comment", require("./routes/comment"))
 
-app.use("/evt", require("./routes/evt"))
+app.use("/rezo", require("./routes/rezo"))
 
 app.use("/goodies", require("./routes/goodies"))
 

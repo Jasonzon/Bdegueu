@@ -137,7 +137,7 @@ function Comment({comment_polyuser, comment_description, created_at, user, setUs
                     <span>{nbDislikes}</span>
                 </div>
             </div> : <span className="connect">Connectez vous pour donner votre avis</span> }
-            <span className="timee">{created_at.substr(0,10)}</span>
+            <span className="tim">{created_at.substr(0,10)}</span>
         </div>
     )
 }
