@@ -61,10 +61,10 @@ function Articles({user, setUser}) {
                 <h1 className="title">Articles</h1>
                 {!(user && user.polyuser_name) ? null : <> {add ? <button onClick={() => setAdd(false)}>Annuler</button> : <button onClick={() => setAdd(true)}>Ajouter</button>} </> }
             </div>
-            {!add ? null : <div className="addd">
+            {!add ? null : <div className="ade">
                 <input placeholder="Nom" value={inputs.name} onChange={(e) => setInputs({name:e.target.value,type:inputs.type,description:inputs.description})} />
                 <input placeholder="Type" value={inputs.type} onChange={(e) => setInputs({name:inputs.name, type:e.target.value,description:inputs.description})} />
-                <input className="file" type="file" accept="image/png" onChange={(e) => setImajo(e.target.files[0])} />
+                <input type="file" accept="image/png" onChange={(e) => setImajo(e.target.files[0])} />
                 <input placeholder="Description" value={inputs.description} onChange={(e) => setInputs({name:inputs.name, type:inputs.type,description:e.target.value})} />
                 <img onClick={() => submit()} title="valider" src={Tick} alt="tick" width="50" height="50" />
             </div>}

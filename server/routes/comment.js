@@ -66,7 +66,8 @@ router.put("/id/:id", async (req,res) => {
 router.delete("/id/:id", async (req,res) => {
     try {
         const {id} = req.params
-        const deleteComment = await pool.query("DELETE FROM comment WHERE comment_id = $1",[id])
+        const deleteComment = await pool.query("DELETE FROM comment WHERE comment_id = $1 RETURNING *",[id])
+        res.json(deleteComment.rows[0])
     } catch (err) {
         console.error(err.message)
     }

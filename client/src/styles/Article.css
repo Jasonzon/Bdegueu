@@ -60,14 +60,42 @@
 
 .trash {
     border-radius:.5rem;
-    padding:.2rem .5rem;
+    padding:.2rem .4rem;
     border:solid 2px transparent;
     position:absolute;
-    top:2rem;
-    right:2rem;
+    top:1rem;
+    right:1rem;
 }
 
 .trash:hover {
     border:2px solid black;
+    cursor:pointer;
+}
+
+.pen {
+    border-radius:.5rem;
+    border:solid 2px transparent;
+    position:absolute;
+    top:1rem;
+    right:3.5rem;
+}
+
+.pen:hover {
+    border:2px solid black;
+    cursor:pointer;
+}
+
+.trash-del {
+    border-radius:.5rem;
+    padding:.2rem .4rem;
+    border:solid 2px red;
+    position:absolute;
+    top:1rem;
+    right:1rem;
+    background-color:white;
+}
+
+.trash-del:hover {
+    border:2px solid;
     cursor:pointer;
 }

@@ -7,6 +7,8 @@ import Dislike from "../assets/dislike.png"
 import Disliked from "../assets/disliked.png"
 import Comments from "./Comments"
 import Trash from "../assets/trash.png"
+import Pen from "../assets/pen.png"
+import {Link} from "react-router-dom"
 
 function Article({user, setUser}) {
 
@@ -138,11 +140,20 @@ function Article({user, setUser}) {
         }
     },[user])
 
+    const [del, setDel] = useState(false)
+
+    async function delet(id) {
+        const res = await fetch(`http://localhost:5000/article/id/${id}`, {
+            method: "DELETE"
+        })
+    }
+
     return (
         <div>
             <div className="article">
                 <h1 className="title">{article.name}</h1>
-                {!(user && user.polyuser_name) ? null : <img className="trash" alt="trash" src={Trash} width="30" height="40"/>}
+                {!(user && user.polyuser_name) ? null : <> {del ? <Link to="/"><img onClick={() => delet(id)} className="trash-del" alt="trash" src={Trash} width="25" height="30"/></Link> : <img onClick={() => setDel(true)} className="trash" alt="trash" src={Trash} width="25" height="30"/>} </> }
+                {!(user && user.polyuser_name) ? null : <img className="pen" alt="pen" src={Pen} width="35" height="35"/>}
                 <h2>{article.type}</h2>
                 <img className="artpic" src={article.pic} alt="pic"/>
                 <p>{article.description}</p>

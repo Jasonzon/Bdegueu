@@ -2,6 +2,7 @@ import "../styles/Rezo.css"
 import {useState, useEffect} from "react"
 import Tick from "../assets/tick.png"
 import Trash from "../assets/trash.png"
+import Pen from "../assets/pen.png"
 
 function Rezo({user, setUser}) {
 
@@ -65,19 +66,30 @@ function Rezo({user, setUser}) {
 
     const [indexPage, setIndexPage] = useState(1)
 
+    const [del, setDel] = useState(false)
+
+    async function delet(id) {
+        const res = await fetch(`http://localhost:5000/rezo/id/${id}`, {
+            method: "DELETE"
+        })
+        const parseRes = await res.json()
+        setRezos(rezos.slice("").filter(({rezo_id}) => rezo_id !== parseRes.rezo_id))
+    }
+
     return (
         <div>
             <div className="connection">
                 <h1 className="title">Rezo</h1>
                 {!(user && user.polyuser_name) ? null : <> {add ? <button onClick={() => setAdd(false)}>Annuler</button> : <button onClick={() => setAdd(true)}>Ajouter</button>} </> }
             </div>
+            <h2 className="goodi2">Retrouve ici les évènements rezo du moment</h2>
             {!add ? null : <div className="ad">
                 <div className="ad1">
                     <input placeholder="Nom" value={inputs.name} onChange={(e) => setInputs({name:e.target.value,date:inputs.date,adh:inputs.adh,nonadh:inputs.nonadh,description:inputs.description,city:inputs.city})} />
                     <input placeholder="Date" value={inputs.date} onChange={(e) => setInputs({name:inputs.name,date:e.target.value,adh:inputs.adh,nonadh:inputs.nonadh,description:inputs.description,city:inputs.city})} />
                     <input placeholder="Ville" value={inputs.city} onChange={(e) => setInputs({name:inputs.name,date:inputs.date,adh:inputs.adh,nonadh:inputs.nonadh,description:inputs.description,city:e.target.value})} />
-                    <input className="file" type="file" accept="image/png" onChange={(e) => setImajo(e.target.files[0])} />
                 </div>
+                <input className="file" type="file" accept="image/png" onChange={(e) => setImajo(e.target.files[0])} />
                 <div className="ad1">
                     <input placeholder="Prix adhérent" value={inputs.adh} onChange={(e) => setInputs({name:inputs.name,date:inputs.date,adh:e.target.value,nonadh:inputs.nonadh,description:inputs.description,city:inputs.city})} />
                     <input placeholder="Prix non-adhérent" value={inputs.nonadh} onChange={(e) => setInputs({name:inputs.name,date:inputs.date,adh:inputs.adh,nonadh:e.target.value,description:inputs.description,city:inputs.city})} />
@@ -86,9 +98,10 @@ function Rezo({user, setUser}) {
                 <img onClick={() => submit()} title="valider" src={Tick} alt="tick" width="50" height="50" />
             </div>}
             <ul className="coco">
-                {rezos.slice("").reverse().map(({rezo_pic, rezo_name, rezo_city, rezo_date, rezo_adh, rezo_nonadh, rezo_description, created_at}) => 
+                {rezos.slice("").reverse().map(({rezo_pic, rezo_name, rezo_city, rezo_date, rezo_adh, rezo_nonadh, rezo_description, created_at, rezo_id}) => 
                     <div className="rezo">
-                        {!(user && user.polyuser_name) ? null : <img className="trash" alt="trash" src={Trash} width="30" height="40"/>}
+                        {!(user && user.polyuser_name) ? null : <> {del ? <img onClick={() => delet(rezo_id)} className="trash-del" alt="trash" src={Trash} width="25" height="30"/> : <img onClick={() => setDel(true)} className="trash" alt="trash" src={Trash} width="25" height="30"/>} </> }
+                        {!(user && user.polyuser_name) ? null : <img className="pen" alt="pen" src={Pen} width="35" height="35"/>}
                         <h1 className="title">{rezo_name}</h1>
                         <h2 className="flex-rezo">{rezo_city}</h2>
                         <h2>{rezo_date}</h2>

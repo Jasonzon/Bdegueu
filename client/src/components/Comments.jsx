@@ -61,6 +61,8 @@ function Comments({user, setUser, comment_id}) {
                             user={user}
                             setUser={setUser}
                             id={comment_id}
+                            comments={comments}
+                            setComments={setComments}
                         />
                     </li> : null } </>
                 )}

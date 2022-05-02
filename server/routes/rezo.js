@@ -66,7 +66,8 @@ router.put("/id/:id", async (req,res) => {
 router.delete("/id/:id", async (req,res) => {
     try {
         const {id} = req.params
-        const deleterezo = await pool.query("DELETE FROM rezo WHERE rezo_id = $1",[id])
+        const deleterezo = await pool.query("DELETE FROM rezo WHERE rezo_id = $1 RETURNING *",[id])
+        res.json(deleterezo.rows[0])
     } catch (err) {
         console.error(err.message)
     }

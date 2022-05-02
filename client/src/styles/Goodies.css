@@ -3,6 +3,7 @@
     background-color:lightblue;
     border-radius: 1rem;
     display:inline-block;
+    position:relative;
 }
 
 .good {
@@ -22,7 +23,7 @@
     margin-bottom:0;
 }
 
-.goodies > img {
+.gooo {
     width:50%;
     margin-left:50%;
     transform: translateX(-50%);
@@ -46,11 +47,13 @@
     font-family:coolvetica;
 }
 
-.addd > img {
+.addd > img,
+.ade > img {
     border:2px solid transparent;
 }
 
-.addd > img:hover {
+.addd > img:hover,
+.ade > img:hover {
     border:2px solid black;
     border-radius:.5rem;
     cursor:pointer;
@@ -70,4 +73,34 @@
     .good {
         grid-template-columns: auto
     }
+}
+
+.goodi {
+    margin-left:2.5rem;
+    margin-top:0;
+}
+
+.goodi2 {
+    margin-left:11.5%;
+    margin-top:0;
+}
+
+.ade {
+    background-color:lightblue;
+    padding:1rem;
+    width:85%;
+    margin-left:50%;
+    transform: translateX(-50%);
+    border-radius:1rem;
+    display:flex;
+    justify-content: space-between;
+}
+
+.ade > input {
+    font-size:1.5rem;
+    width:23%;
+}
+
+.ade > input[type="file"] {
+    margin-top:.5rem;
 }
