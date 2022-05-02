@@ -22,8 +22,8 @@ CREATE TABLE rezo(
     rezo_name VARCHAR(255) NOT NULL,
     rezo_city VARCHAR(255) NOT NULL,
     rezo_date VARCHAR(255) NOT NULL,
-    rezo_adh INT NOT NULL,
-    rezo_nonadh INT NOT NULL,
+    rezo_adh CHAR(255) NOT NULL,
+    rezo_nonadh CHAR(255) NOT NULL,
     rezo_description VARCHAR(5000) NOT NULL,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );

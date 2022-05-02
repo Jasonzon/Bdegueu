@@ -6,6 +6,7 @@ import Liked from "../assets/liked.png"
 import Dislike from "../assets/dislike.png"
 import Disliked from "../assets/disliked.png"
 import Comments from "./Comments"
+import Trash from "../assets/trash.png"
 
 function Article({user, setUser}) {
 
@@ -141,8 +142,9 @@ function Article({user, setUser}) {
         <div>
             <div className="article">
                 <h1 className="title">{article.name}</h1>
+                {!(user && user.polyuser_name) ? null : <img className="trash" alt="trash" src={Trash} width="30" height="40"/>}
                 <h2>{article.type}</h2>
-                <img src={article.pic} alt="pic"/>
+                <img className="artpic" src={article.pic} alt="pic"/>
                 <p>{article.description}</p>
                 {user && user.polyuser_name ?
                 <div className="thumbs">
