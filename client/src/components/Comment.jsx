@@ -6,7 +6,7 @@ import Disliked from "../assets/disliked.png"
 import {useState, useEffect} from "react"
 import Trash from "../assets/trash.png"
 
-function Comment({comment_polyuser, comment_description, created_at, user, setUser, id, comments, setComments}) {
+function Comment({comment_polyuser, comment_description, created_at, user, setUser, id, comments, setComments, onDel, setOnDel}) {
 
     const [liked, setLiked] = useState(0)
     const [name, setName] = useState("")
@@ -131,9 +131,13 @@ function Comment({comment_polyuser, comment_description, created_at, user, setUs
         setComments(comments.slice("").filter(({comment_id}) => comment_id !== parseRes.comment_id))
     }
 
+    if (id !== onDel && del) {
+        setDel(false)
+    }
+
     return (
         <div className="comment">
-            {!(user && user.polyuser_name) ? null : <> {del ? <img onClick={() => delet(id)} className="trash-del" alt="trash" src={Trash} width="25" height="30"/> : <img onClick={() => setDel(true)} className="trash" alt="trash" src={Trash} width="25" height="30"/>} </> }
+            {!(user && user.polyuser_name) ? null : <> {del ? <img onClick={() => delet(id)} className="trash-del" alt="trash" src={Trash} width="25" height="30"/> : <img onClick={() => {setDel(true);setOnDel(id)}} className="trash" alt="trash" src={Trash} width="25" height="30"/>} </> }
             <span className="nam">{name}</span>
             <p>{comment_description}</p>
             {user && user.polyuser_name ?

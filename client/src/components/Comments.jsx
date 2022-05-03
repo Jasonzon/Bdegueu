@@ -5,6 +5,8 @@ import Tick from "../assets/tick.png"
 
 function Comments({user, setUser, comment_id}) {
 
+    const [onDel, setOnDel] = useState(0)
+
     const [comments, setComments] = useState([])
     const [indexPage, setIndexPage] = useState(1)
 
@@ -14,6 +16,7 @@ function Comments({user, setUser, comment_id}) {
         })
         const parseRes = await res.json()
         setComments(parseRes)
+        comments.slice("").map(({goodies_id},index) => index === 0 ? setOnDel(goodies_id) : null)
     }
 
     useEffect(() => {
@@ -34,7 +37,7 @@ function Comments({user, setUser, comment_id}) {
                 body:JSON.stringify(body)
             })
             const parseRes = await res.json()
-            comments.push(parseRes)
+            setComments([...comments,parseRes])
             setInput("")
             setAdd(false)
         }
@@ -63,6 +66,8 @@ function Comments({user, setUser, comment_id}) {
                             id={comment_id}
                             comments={comments}
                             setComments={setComments}
+                            onDel={onDel}
+                            setOnDel={setOnDel}
                         />
                     </li> : null } </>
                 )}

@@ -46,7 +46,7 @@ function Articles({user, setUser}) {
                 body:JSON.stringify(body)
             })
             const parseRes2 = await res2.json()
-            articles.push(parseRes2)
+            setArticles([...articles,parseRes2])
             setImajo({vide:true})
             setInputs({name:"", type:"", description:""})
             setAdd(false)

@@ -6,6 +6,14 @@
     position:relative;
 }
 
+.goodies .gooo {
+    border-radius:1rem;
+}
+
+.goodies .gooo:hover {
+    background-color: skyblue;
+}
+
 .good {
     display: grid;
     grid-template-columns: auto auto auto;

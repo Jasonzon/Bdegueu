@@ -55,7 +55,8 @@ router.put("/id/:id", async (req,res) => {
     try {
         const {id} = req.params
         const {name, city, pic, description, date, adh, nonadh} = req.body
-        const updaterezo = await pool.query("UPDATE rezo SET rezo_name = $2, rezo_city = $3, rezo_pic = $4, rezo_description = $5, rezo_date = $6, rezo_adh = $7, rezo_nonadh = $8 WHERE rezo_id = $1",[id, name, city, pic, description, date, adh, nonadh])
+        const updaterezo = await pool.query("UPDATE rezo SET rezo_name = $2, rezo_city = $3, rezo_pic = $4, rezo_description = $5, rezo_date = $6, rezo_adh = $7, rezo_nonadh = $8 WHERE rezo_id = $1 RETURNING *",[id, name, city, pic, description, date, adh, nonadh])
+        res.json(updaterezo.rows[0])
     } catch (err) {
         console.error(err.message)
     }

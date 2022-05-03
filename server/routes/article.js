@@ -55,7 +55,8 @@ router.put("/id/:id", async (req,res) => {
     try {
         const {id} = req.params
         const {name, type, pic, description} = req.body
-        const updateArticle = await pool.query("UPDATE article SET article_name = $2, article_type = $3, article_pic = $4, article_description = $5 WHERE article_id = $1",[id, name, type, pic, description])
+        const updateArticle = await pool.query("UPDATE article SET article_name = $2, article_type = $3, article_pic = $4, article_description = $5 WHERE article_id = $1 RETURNING *",[id, name, type, pic, description])
+        res.json(updateArticle.rows[0])
     } catch (err) {
         console.error(err.message)
     }

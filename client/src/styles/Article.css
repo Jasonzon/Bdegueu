@@ -85,6 +85,20 @@
     cursor:pointer;
 }
 
+.cross {
+    border-radius:.5rem;
+    border:solid 2px transparent;
+    position:absolute;
+    top:1.05rem;
+    right:3.5rem;
+    padding:-.5rem;
+}
+
+.cross:hover {
+    border:2px solid black;
+    cursor:pointer;
+}
+
 .trash-del {
     border-radius:.5rem;
     padding:.2rem .4rem;
@@ -98,4 +112,8 @@
 .trash-del:hover {
     border:2px solid;
     cursor:pointer;
+}
+
+.padding {
+    margin-top:1rem;
 }

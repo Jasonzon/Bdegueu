@@ -9,6 +9,8 @@ import Comments from "./Comments"
 import Trash from "../assets/trash.png"
 import Pen from "../assets/pen.png"
 import {Link} from "react-router-dom"
+import Tick from "../assets/tick.png"
+import Cross from "../assets/cross.png"
 
 function Article({user, setUser}) {
 
@@ -40,6 +42,12 @@ function Article({user, setUser}) {
             time:parseRes.created_at,
             likes:parseRes.article_likes,
             dislikes:parseRes.article_dislikes
+        })
+        setInputs({
+            name:parseRes.article_name,
+            type:parseRes.article_type,
+            pic:parseRes.article_pic,
+            description:parseRes.article_description   
         })
     }
 
@@ -148,12 +156,78 @@ function Article({user, setUser}) {
         })
     }
 
+    const [modif, setModif] = useState(false)
+    const [inputs, setInputs] = useState({
+        name:"",
+        type:"",
+        description:""
+    })
+
+    const [imajo, setImajo] = useState({vide:true})
+
+    async function submit() {
+        if (inputs.name !== "" && inputs.type !== "" && inputs.description !== "") {
+            if (!imajo.vide) {
+                const formData = new FormData()
+                formData.append("file",imajo)
+                formData.append("upload_preset","sfogjxhj")
+                const res = await fetch("https://api.cloudinary.com/v1_1/bdegueu/image/upload", {
+                    method: "POST",
+                    body:formData
+                })
+                const parseRes = await res.json()
+                const body = {name:inputs.name,type:inputs.type,pic:parseRes.secure_url,description:inputs.description}
+                const res2 = await fetch(`http://localhost:5000/article/id/${id}`, {
+                    method: "PUT",
+                    headers: {"Content-Type" : "application/json"},
+                    body:JSON.stringify(body)
+                })
+                const parseRes2 = await res2.json()
+                setArticle({
+                    name:parseRes2.article_name,
+                    type:parseRes2.article_type,
+                    pic:parseRes2.article_pic,
+                    description:parseRes2.article_description,
+                    time:article.time,
+                    likes:article.article_likes,
+                    dislikes:article.article_dislikes
+                })
+            }
+            else {
+                const body = {name:inputs.name,type:inputs.type,pic:article.pic,description:inputs.description}
+                const res2 = await fetch(`http://localhost:5000/article/id/${id}`, {
+                    method: "PUT",
+                    headers: {"Content-Type" : "application/json"},
+                    body:JSON.stringify(body)
+                })
+                const parseRes2 = await res2.json()
+                setArticle({
+                    name:parseRes2.article_name,
+                    type:parseRes2.article_type,
+                    pic:parseRes2.article_pic,
+                    description:parseRes2.article_description,
+                    time:article.time,
+                    likes:article.article_likes,
+                    dislikes:article.article_dislikes
+                })
+            }
+            setModif(false)
+        }
+    }
+
     return (
         <div>
+            {!modif ? null : <div className="ade padding">
+                <input placeholder="Nom" value={inputs.name} onChange={(e) => setInputs({name:e.target.value,type:inputs.type,description:inputs.description})} />
+                <input placeholder="Type" value={inputs.type} onChange={(e) => setInputs({name:inputs.name, type:e.target.value,description:inputs.description})} />
+                <input type="file" accept="image/png" onChange={(e) => setImajo(e.target.files[0])} />
+                <input placeholder="Description" value={inputs.description} onChange={(e) => setInputs({name:inputs.name, type:inputs.type,description:e.target.value})} />
+                <img onClick={() => submit()} title="valider" src={Tick} alt="tick" width="50" height="50" />
+            </div>}
             <div className="article">
                 <h1 className="title">{article.name}</h1>
                 {!(user && user.polyuser_name) ? null : <> {del ? <Link to="/"><img onClick={() => delet(id)} className="trash-del" alt="trash" src={Trash} width="25" height="30"/></Link> : <img onClick={() => setDel(true)} className="trash" alt="trash" src={Trash} width="25" height="30"/>} </> }
-                {!(user && user.polyuser_name) ? null : <img className="pen" alt="pen" src={Pen} width="35" height="35"/>}
+                {!(user && user.polyuser_name) ? null : <> {modif ? <img onClick={() => {setModif(false);setImajo({vide:true})}} className="cross" src={Cross} alt="cross" width="35" height="35"/> : <img onClick={() => setModif(true)} className="pen" alt="pen" src={Pen} width="35" height="35"/>} </> }
                 <h2>{article.type}</h2>
                 <img className="artpic" src={article.pic} alt="pic"/>
                 <p>{article.description}</p>
