@@ -5,11 +5,6 @@ import Logo from "../assets/bdegueu2.png"
 
 function Home() {
 
-  const [user, setUser] = useState({})
-  const handleUser = (user) => {
-    setUser(user)
-  }
-
   const [articles, setArticles] = useState([])
 
   async function getArticles() {

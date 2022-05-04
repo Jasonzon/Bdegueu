@@ -10,6 +10,7 @@ function Comment({comment_polyuser, comment_description, created_at, user, setUs
 
     const [liked, setLiked] = useState(0)
     const [name, setName] = useState("")
+    const [newId, setNewId] = useState(0)
 
     async function getLikes() {
         const res = await fetch(`http://localhost:5000/likes_comment/id/${id}`, {
@@ -33,6 +34,7 @@ function Comment({comment_polyuser, comment_description, created_at, user, setUs
         })
         const parseRes = await res.json()
         setName(parseRes.polyuser_name)
+        setNewId(parseRes.polyuser_id)
     }
 
     useEffect(() => {
@@ -84,7 +86,7 @@ function Comment({comment_polyuser, comment_description, created_at, user, setUs
             const body = {liked:int === -1 ? false : true,polyuser:user.polyuser_id,comment:id}
             const res2 = await fetch(`http://localhost:5000/likes_comment/id/${slice[0].likes_id}`, {
                 method: "PUT",
-                headers: {"Content-Type" : "application/json"},
+                headers: {"Content-Type" : "application/json",token: localStorage.token},
                 body:JSON.stringify(body)
             })
         }
@@ -98,7 +100,7 @@ function Comment({comment_polyuser, comment_description, created_at, user, setUs
             const body = {liked:int === -1 ? false : true,polyuser:user.polyuser_id,comment:id}
             const res2 = await fetch("http://localhost:5000/likes_comment", {
                 method: "POST",
-                headers: {"Content-Type" : "application/json"},
+                headers: {"Content-Type" : "application/json",token: localStorage.token},
                 body:JSON.stringify(body)
             })
         }
@@ -117,7 +119,8 @@ function Comment({comment_polyuser, comment_description, created_at, user, setUs
         const parseRes = await res.json() 
         const slice = parseRes.slice("").filter(({likes_polyuser}) => user && user.polyuser_id === likes_polyuser)
         const res2 = await fetch(`http://localhost:5000/likes_comment/id/${slice[0].likes_id}`, {
-            method: "DELETE"
+            method: "DELETE",
+            headers: {token: localStorage.token}
         })
     }
 
@@ -125,7 +128,8 @@ function Comment({comment_polyuser, comment_description, created_at, user, setUs
 
     async function delet(id) {
         const res = await fetch(`http://localhost:5000/comment/id/${id}`, {
-            method: "DELETE"
+            method: "DELETE",
+            headers: {token: localStorage.token}
         })
         const parseRes = await res.json()
         setComments(comments.slice("").filter(({comment_id}) => comment_id !== parseRes.comment_id))
@@ -138,7 +142,7 @@ function Comment({comment_polyuser, comment_description, created_at, user, setUs
     return (
         <div className="comment">
             {!(user && user.polyuser_name) ? null : <> {del ? <img onClick={() => delet(id)} className="trash-del" alt="trash" src={Trash} width="25" height="30"/> : <img onClick={() => {setDel(true);setOnDel(id)}} className="trash" alt="trash" src={Trash} width="25" height="30"/>} </> }
-            <span className="nam">{name}</span>
+            <span className="nam">{name} {"#"+("000"+newId).slice(-4)}</span>
             <p>{comment_description}</p>
             {user && user.polyuser_name ?
             <div className="thumbs">

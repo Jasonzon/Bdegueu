@@ -40,7 +40,7 @@ function Goodies({user, setUser}) {
             const body = {name:inputs.name,price:inputs.price,pic:parseRes.secure_url}
             const res2 = await fetch("http://localhost:5000/goodies", {
                 method: "POST",
-                headers: {"Content-Type" : "application/json"},
+                headers: {"Content-Type" : "application/json",token: localStorage.token},
                 body:JSON.stringify(body)
             })
             const parseRes2 = await res2.json()
@@ -55,7 +55,8 @@ function Goodies({user, setUser}) {
 
     async function delet(id) {
         const res = await fetch(`http://localhost:5000/goodies/id/${id}`, {
-            method: "DELETE"
+            method: "DELETE",
+            headers: {token: localStorage.token}
         })
         const parseRes = await res.json()
         setGoodies(goodies.slice("").filter(({goodies_id}) => goodies_id !== parseRes.goodies_id))
@@ -82,7 +83,7 @@ function Goodies({user, setUser}) {
                 const body = {name:inputs2.name,price:inputs2.price,pic:parseRes.secure_url}
                 const res2 = await fetch(`http://localhost:5000/goodies/id/${inputs2.id}`, {
                     method: "PUT",
-                    headers: {"Content-Type" : "application/json"},
+                    headers: {"Content-Type" : "application/json",token: localStorage.token},
                     body:JSON.stringify(body)
                 })
                 const parseRes2 = await res2.json()
@@ -95,7 +96,7 @@ function Goodies({user, setUser}) {
                 const body = {name:inputs2.name,price:inputs2.price,pic:inputs2.pic}
                 const res2 = await fetch(`http://localhost:5000/goodies/id/${inputs2.id}`, {
                     method: "PUT",
-                    headers: {"Content-Type" : "application/json"},
+                    headers: {"Content-Type" : "application/json",token: localStorage.token},
                     body:JSON.stringify(body)
                 })
                 const parseRes2 = await res2.json()
@@ -114,14 +115,14 @@ function Goodies({user, setUser}) {
             </div>
             <h2 className="goodi">Les goodies seront disponibles à l'achat prochainement</h2>
             {!add ? null : <div className="ade">
-                <input placeholder="Nom" value={inputs.name} onChange={(e) => setInputs({name:e.target.value, price:inputs.price})} />
-                <input placeholder="Prix" value={inputs.price} onChange={(e) => setInputs({name:inputs.name, price:e.target.value})} />
+                <input maxLength="30" placeholder="Nom" value={inputs.name} onChange={(e) => setInputs({name:e.target.value, price:inputs.price})} />
+                <input maxLength="10" placeholder="Prix" value={inputs.price} onChange={(e) => setInputs({name:inputs.name, price:e.target.value})} />
                 <input type="file" accept="image/png" onChange={(e) => setImajo(e.target.files[0])} />
                 <img onClick={() => submit()} title="valider" src={Tick} alt="tick" width="50" height="50" />
             </div>}
             {modif.slice("").filter((goodie) => goodie === true).length === 0 ? null : <div className="ade">
-                <input placeholder="Nom" value={inputs2.name} onChange={(e) => setInputs2({name:e.target.value, price:inputs2.price,id:inputs2.id,pic:inputs2.pic})} />
-                <input placeholder="Prix" value={inputs2.price} onChange={(e) => setInputs2({name:inputs2.name, price:e.target.value,id:inputs2.id,pic:inputs2.pic})} />
+                <input maxLength="30" placeholder="Nom" value={inputs2.name} onChange={(e) => setInputs2({name:e.target.value, price:inputs2.price,id:inputs2.id,pic:inputs2.pic})} />
+                <input maxLength="10" placeholder="Prix" value={inputs2.price} onChange={(e) => setInputs2({name:inputs2.name, price:e.target.value,id:inputs2.id,pic:inputs2.pic})} />
                 <input type="file" accept="image/png" onChange={(e) => setImajo2(e.target.files[0])} />
                 <img onClick={() => submit2()} title="valider" src={Tick} alt="tick" width="50" height="50" />
             </div>}

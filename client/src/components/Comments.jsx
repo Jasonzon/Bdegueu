@@ -33,7 +33,7 @@ function Comments({user, setUser, comment_id}) {
             const body = {description:input,polyuser:user.polyuser_id,article:comment_id}
             const res = await fetch("http://localhost:5000/comment", {
                 method: "POST",
-                headers: {"Content-Type" : "application/json"},
+                headers: {"Content-Type" : "application/json",token: localStorage.token},
                 body:JSON.stringify(body)
             })
             const parseRes = await res.json()
@@ -50,7 +50,7 @@ function Comments({user, setUser, comment_id}) {
                 {!(user && user.polyuser_name) ? <button title="connectez-vous d'abord" disabled>Ajouter</button> : <> {add ? <button onClick={() => setAdd(false)}>Annuler</button> : <button onClick={() => setAdd(true)}>Ajouter</button>} </> }
             </div>
             {!add ? null : <div className="add">
-                <input placeholder="Ajoutez un commentaire" value={input} onChange={(e) => setInput(e.target.value)} />
+                <input placeholder="Ajoutez un commentaire" value={input} onChange={(e) => setInput(e.target.value)} maxLength="500" />
                 <img onClick={() => publier()} title="valider" src={Tick} alt="tick" width="50" height="50" />
             </div>}
             <ul className="coco">

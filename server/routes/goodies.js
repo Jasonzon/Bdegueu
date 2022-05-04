@@ -1,5 +1,6 @@
 const router = require("express").Router()
 const pool = require("../db")
+const auth = require("../utils/auth")
 
 //get all 
 
@@ -38,12 +39,16 @@ router.get("/name/:id", async (req,res) => {
 
 //create
 
-router.post("/", async (req,res) => {
+router.post("/", auth, async (req,res) => {
     try {
         const {name, price, pic} = req.body
-        const newGoodies = await pool.query("INSERT INTO goodies (goodies_name, goodies_price, goodies_pic) VALUES ($1, $2, $3) RETURNING *", [name, price, pic])
-        res.json(newGoodies.rows[0])
-
+        if (req.polyuser && req.role === "admin") {
+            const newGoodies = await pool.query("INSERT INTO goodies (goodies_name, goodies_price, goodies_pic) VALUES ($1, $2, $3) RETURNING *", [name, price, pic])
+            res.json(newGoodies.rows[0])
+        }
+        else {
+            return res.status(403).send("Not Authorized")
+        }
     } catch (err) {
         console.error(err.message)
     }
@@ -51,12 +56,17 @@ router.post("/", async (req,res) => {
 
 //update
 
-router.put("/id/:id", async (req,res) => {
+router.put("/id/:id", auth, async (req,res) => {
     try {
         const {id} = req.params
         const {name, price, pic} = req.body
-        const updateGoodies = await pool.query("UPDATE goodies SET goodies_name = $2, goodies_price = $3, goodies_pic = $4 WHERE goodies_id = $1 RETURNING *",[id, name, price, pic])
-        res.json(updateGoodies.rows[0])
+        if (req.polyuser && req.role === "admin") {
+            const updateGoodies = await pool.query("UPDATE goodies SET goodies_name = $2, goodies_price = $3, goodies_pic = $4 WHERE goodies_id = $1 RETURNING *",[id, name, price, pic])
+            res.json(updateGoodies.rows[0])
+        }
+        else {
+            return res.status(403).send("Not Authorized")
+        }
     } catch (err) {
         console.error(err.message)
     }
@@ -64,10 +74,15 @@ router.put("/id/:id", async (req,res) => {
 
 //delete
 
-router.delete("/id/:id", async (req,res) => {
+router.delete("/id/:id", auth, async (req,res) => {
     try {
         const {id} = req.params
-        const deleteGoodies = await pool.query("DELETE FROM goodies WHERE goodies_id = $1",[id])
+        if (req.polyuser && req.role === "admin") {
+            const deleteGoodies = await pool.query("DELETE FROM goodies WHERE goodies_id = $1",[id])
+        }
+        else {
+            return res.status(403).send("Not Authorized")
+        }
     } catch (err) {
         console.error(err.message)
     }

@@ -43,9 +43,9 @@ function Connection({connection, setConnection, user, setUser}) {
             </div>
             <form>
                 <label>Mail</label><br/>
-                <input placeholder={holder1} required onChange={(e) => {setInputs({mail:e.target.value, password:inputs.password}); setHolder1("")}} value={inputs.mail} type="email" id="mail" name="mail" /><br/>
+                <input maxLength="100" placeholder={holder1} required onChange={(e) => {setInputs({mail:e.target.value, password:inputs.password}); setHolder1("")}} value={inputs.mail} type="email" id="mail" name="mail" /><br/>
                 <label>Mot de passe</label><br/>
-                <input placeholder={holder2} required onChange={(e) => {setInputs({mail:inputs.mail, password:e.target.value}); setHolder2("")}} value={inputs.password} type="password" id="password" name="password" /><br/>
+                <input placeholder={holder2} maxLength="50" required onChange={(e) => {setInputs({mail:inputs.mail, password:e.target.value}); setHolder2("")}} value={inputs.password} type="password" id="password" name="password" /><br/>
                 <button type="submit" onClick={(e) => submit(e)}>Se connecter</button>
             </form>
         </div>

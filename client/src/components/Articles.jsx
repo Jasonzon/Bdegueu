@@ -42,7 +42,7 @@ function Articles({user, setUser}) {
             const body = {name:inputs.name,type:inputs.type,pic:parseRes.secure_url,description:inputs.description}
             const res2 = await fetch("http://localhost:5000/article", {
                 method: "POST",
-                headers: {"Content-Type" : "application/json"},
+                headers: {"Content-Type" : "application/json",token: localStorage.token},
                 body:JSON.stringify(body)
             })
             const parseRes2 = await res2.json()
@@ -62,10 +62,10 @@ function Articles({user, setUser}) {
                 {!(user && user.polyuser_name) ? null : <> {add ? <button onClick={() => setAdd(false)}>Annuler</button> : <button onClick={() => setAdd(true)}>Ajouter</button>} </> }
             </div>
             {!add ? null : <div className="ade">
-                <input placeholder="Nom" value={inputs.name} onChange={(e) => setInputs({name:e.target.value,type:inputs.type,description:inputs.description})} />
-                <input placeholder="Type" value={inputs.type} onChange={(e) => setInputs({name:inputs.name, type:e.target.value,description:inputs.description})} />
+                <input maxLength="50" placeholder="Nom" value={inputs.name} onChange={(e) => setInputs({name:e.target.value,type:inputs.type,description:inputs.description})} />
+                <input maxLength="50" placeholder="Type" value={inputs.type} onChange={(e) => setInputs({name:inputs.name, type:e.target.value,description:inputs.description})} />
                 <input type="file" accept="image/png" onChange={(e) => setImajo(e.target.files[0])} />
-                <input placeholder="Description" value={inputs.description} onChange={(e) => setInputs({name:inputs.name, type:inputs.type,description:e.target.value})} />
+                <input maxLength="5000" placeholder="Description" value={inputs.description} onChange={(e) => setInputs({name:inputs.name, type:inputs.type,description:e.target.value})} />
                 <img onClick={() => submit()} title="valider" src={Tick} alt="tick" width="50" height="50" />
             </div>}
             <ul className="coco">

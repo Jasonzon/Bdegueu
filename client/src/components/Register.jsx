@@ -46,11 +46,11 @@ function Register({connection, setConnection, user, setUser}) {
             </div>
             <form>
                 <label>Mail</label><br/>
-                <input placeholder={holder} required onChange={(e) => {setInputs({mail:e.target.value, pseudo:inputs.pseudo, password:inputs.password});setHolder("")}} value={inputs.mail} type="email" id="email" name="email"/><br/>
+                <input placeholder={holder} maxLength="100" required onChange={(e) => {setInputs({mail:e.target.value, pseudo:inputs.pseudo, password:inputs.password});setHolder("")}} value={inputs.mail} type="email" id="email" name="email"/><br/>
                 <label>Pseudo</label><br/>
-                <input required onChange={(e) => setInputs({mail:inputs.mail, pseudo:e.target.value, password:inputs.password})} value={inputs.pseudo} type="text" id="epseudo" name="epseudo"/><br/>
+                <input required maxLength="20" onChange={(e) => setInputs({mail:inputs.mail, pseudo:e.target.value, password:inputs.password})} value={inputs.pseudo} type="text" id="epseudo" name="epseudo"/><br/>
                 <label>Mot de passe</label><br/>
-                <input required onChange={(e) => setInputs({mail:inputs.mail, pseudo:inputs.pseudo, password:e.target.value})} value={inputs.password} type="password" id="epassword" name="epassword"/><br/>
+                <input required maxLength="50" onChange={(e) => setInputs({mail:inputs.mail, pseudo:inputs.pseudo, password:e.target.value})} value={inputs.password} type="password" id="epassword" name="epassword"/><br/>
                 <button type="submit" onClick={(e) => submit(e)}>S'enregistrer</button>
             </form>
         </div>

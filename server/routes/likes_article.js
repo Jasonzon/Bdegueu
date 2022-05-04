@@ -1,5 +1,6 @@
 const router = require("express").Router()
 const pool = require("../db")
+const auth = require("../utils/auth")
 
 //get by article
 
@@ -27,11 +28,16 @@ router.get("/id/:id", async (req,res) => {
 
 //create
 
-router.post("/", async (req,res) => {
+router.post("/", auth, async (req,res) => {
     try {
         const {liked, polyuser, article} = req.body
-        const newLike = await pool.query("INSERT INTO likes_article (likes_liked, likes_polyuser, likes_article) VALUES ($1, $2, $3) RETURNING *", [liked, polyuser, article])
-        res.json(newLike.rows[0])
+        if (req.polyuser) {
+            const newLike = await pool.query("INSERT INTO likes_article (likes_liked, likes_polyuser, likes_article) VALUES ($1, $2, $3) RETURNING *", [liked, polyuser, article])
+            res.json(newLike.rows[0])
+        }
+        else {
+            return res.status(403).send("Not Authorized")
+        }
 
     } catch (err) {
         console.error(err.message)
@@ -40,11 +46,16 @@ router.post("/", async (req,res) => {
 
 //update
 
-router.put("/id/:id", async (req,res) => {
+router.put("/id/:id", auth, async (req,res) => {
     try {
         const {id} = req.params
         const {liked, polyuser, article} = req.body
-        const updateLike = await pool.query("UPDATE likes_article SET likes_liked = $2, likes_polyuser = $3, likes_article = $4 WHERE likes_id = $1",[id, liked, polyuser, article])
+        if (req.polyuser) {
+            const updateLike = await pool.query("UPDATE likes_article SET likes_liked = $2, likes_polyuser = $3, likes_article = $4 WHERE likes_id = $1",[id, liked, polyuser, article])
+        }
+        else {
+            return res.status(403).send("Not Authorized")
+        }
     } catch (err) {
         console.error(err.message)
     }
@@ -52,10 +63,15 @@ router.put("/id/:id", async (req,res) => {
 
 //delete
 
-router.delete("/id/:id", async (req,res) => {
+router.delete("/id/:id", auth, async (req,res) => {
     try {
         const {id} = req.params
-        const deleteLikes = await pool.query("DELETE FROM likes_article WHERE likes_id = $1",[id])
+        if (req.polyuser) {
+            const deleteLikes = await pool.query("DELETE FROM likes_article WHERE likes_id = $1",[id])
+        }
+        else {
+            return res.status(403).send("Not Authorized")
+        }
     } catch (err) {
         console.error(err.message)
     }

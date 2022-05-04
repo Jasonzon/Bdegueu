@@ -47,7 +47,7 @@ function Rezo({user, setUser}) {
             const body = {name:inputs.name,date:inputs.date,pic:parseRes.secure_url,description:inputs.description,adh:inputs.adh,nonadh:inputs.nonadh,city:inputs.city}
             const res2 = await fetch("http://localhost:5000/rezo", {
                 method: "POST",
-                headers: {"Content-Type" : "application/json"},
+                headers: {"Content-Type" : "application/json",token: localStorage.token},
                 body:JSON.stringify(body)
             })
             const parseRes2 = await res2.json()
@@ -71,7 +71,8 @@ function Rezo({user, setUser}) {
 
     async function delet(id) {
         const res = await fetch(`http://localhost:5000/rezo/id/${id}`, {
-            method: "DELETE"
+            method: "DELETE",
+            headers: {token: localStorage.token}
         })
         const parseRes = await res.json()
         setRezos(rezos.slice("").filter(({rezo_id}) => rezo_id !== parseRes.rezo_id))
@@ -98,7 +99,7 @@ function Rezo({user, setUser}) {
                 const body = {name:inputs2.name,adh:inputs2.adh,nonadh:inputs2.nonadh,description:inputs2.description,date:inputs2.date,city:inputs2.city,pic:parseRes.secure_url}
                 const res2 = await fetch(`http://localhost:5000/rezo/id/${inputs2.id}`, {
                     method: "PUT",
-                    headers: {"Content-Type" : "application/json"},
+                    headers: {"Content-Type" : "application/json",token: localStorage.token},
                     body:JSON.stringify(body)
                 })
                 const parseRes2 = await res2.json()
@@ -111,7 +112,7 @@ function Rezo({user, setUser}) {
                 const body = {name:inputs2.name,adh:inputs2.adh,nonadh:inputs2.nonadh,description:inputs2.description,date:inputs2.date,city:inputs2.city,pic:inputs2.pic}
                 const res2 = await fetch(`http://localhost:5000/rezo/id/${inputs2.id}`, {
                     method: "PUT",
-                    headers: {"Content-Type" : "application/json"},
+                    headers: {"Content-Type" : "application/json",token: localStorage.token},
                     body:JSON.stringify(body)
                 })
                 const parseRes2 = await res2.json()
@@ -131,29 +132,29 @@ function Rezo({user, setUser}) {
             <h2 className="goodi2">Retrouve ici les évènements rezo du moment</h2>
             {!add ? null : <div className="ad">
                 <div className="ad1">
-                    <input placeholder="Nom" value={inputs.name} onChange={(e) => setInputs({name:e.target.value,date:inputs.date,adh:inputs.adh,nonadh:inputs.nonadh,description:inputs.description,city:inputs.city})} />
-                    <input placeholder="Date" value={inputs.date} onChange={(e) => setInputs({name:inputs.name,date:e.target.value,adh:inputs.adh,nonadh:inputs.nonadh,description:inputs.description,city:inputs.city})} />
-                    <input placeholder="Ville" value={inputs.city} onChange={(e) => setInputs({name:inputs.name,date:inputs.date,adh:inputs.adh,nonadh:inputs.nonadh,description:inputs.description,city:e.target.value})} />
+                    <input maxLength="50" placeholder="Nom" value={inputs.name} onChange={(e) => setInputs({name:e.target.value,date:inputs.date,adh:inputs.adh,nonadh:inputs.nonadh,description:inputs.description,city:inputs.city})} />
+                    <input maxLength="50" placeholder="Date" value={inputs.date} onChange={(e) => setInputs({name:inputs.name,date:e.target.value,adh:inputs.adh,nonadh:inputs.nonadh,description:inputs.description,city:inputs.city})} />
+                    <input maxLength="50" placeholder="Ville" value={inputs.city} onChange={(e) => setInputs({name:inputs.name,date:inputs.date,adh:inputs.adh,nonadh:inputs.nonadh,description:inputs.description,city:e.target.value})} />
                 </div>
                 <input className="file" type="file" accept="image/png" onChange={(e) => setImajo(e.target.files[0])} />
                 <div className="ad1">
-                    <input placeholder="Prix adhérent" value={inputs.adh} onChange={(e) => setInputs({name:inputs.name,date:inputs.date,adh:e.target.value,nonadh:inputs.nonadh,description:inputs.description,city:inputs.city})} />
-                    <input placeholder="Prix non-adhérent" value={inputs.nonadh} onChange={(e) => setInputs({name:inputs.name,date:inputs.date,adh:inputs.adh,nonadh:e.target.value,description:inputs.description,city:inputs.city})} />
-                    <input placeholder="Description" value={inputs.description} onChange={(e) => setInputs({name:inputs.name,date:inputs.date,adh:inputs.adh,nonadh:inputs.nonadh,description:e.target.value,city:inputs.city})} /><br/>
+                    <input maxLength="10" placeholder="Prix adhérent" value={inputs.adh} onChange={(e) => setInputs({name:inputs.name,date:inputs.date,adh:e.target.value,nonadh:inputs.nonadh,description:inputs.description,city:inputs.city})} />
+                    <input maxLength="10" placeholder="Prix non-adhérent" value={inputs.nonadh} onChange={(e) => setInputs({name:inputs.name,date:inputs.date,adh:inputs.adh,nonadh:e.target.value,description:inputs.description,city:inputs.city})} />
+                    <input maxLength="5000" placeholder="Description" value={inputs.description} onChange={(e) => setInputs({name:inputs.name,date:inputs.date,adh:inputs.adh,nonadh:inputs.nonadh,description:e.target.value,city:inputs.city})} /><br/>
                 </div>
                 <img onClick={() => submit()} title="valider" src={Tick} alt="tick" width="50" height="50" />
             </div>}
             {modif.slice("").filter((rez) => rez === true).length === 0 ? null : <div className="ad">
                 <div className="ad1">
-                    <input placeholder="Nom" value={inputs2.name} onChange={(e) => setInputs2({name:e.target.value,date:inputs2.date,adh:inputs2.adh,nonadh:inputs2.nonadh,description:inputs2.description,city:inputs2.city,id:inputs2.id,pic:inputs2.pic})} />
-                    <input placeholder="Date" value={inputs2.date} onChange={(e) => setInputs2({name:inputs2.name,date:e.target.value,adh:inputs2.adh,nonadh:inputs2.nonadh,description:inputs2.description,city:inputs2.city,id:inputs2.id,pic:inputs2.pic})} />
-                    <input placeholder="Ville" value={inputs2.city} onChange={(e) => setInputs2({name:inputs2.name,date:inputs2.date,adh:inputs2.adh,nonadh:inputs2.nonadh,description:inputs2.description,city:e.target.value,id:inputs2.id,pic:inputs2.pic})} />
+                    <input maxLength="50" placeholder="Nom" value={inputs2.name} onChange={(e) => setInputs2({name:e.target.value,date:inputs2.date,adh:inputs2.adh,nonadh:inputs2.nonadh,description:inputs2.description,city:inputs2.city,id:inputs2.id,pic:inputs2.pic})} />
+                    <input maxLength="50" placeholder="Date" value={inputs2.date} onChange={(e) => setInputs2({name:inputs2.name,date:e.target.value,adh:inputs2.adh,nonadh:inputs2.nonadh,description:inputs2.description,city:inputs2.city,id:inputs2.id,pic:inputs2.pic})} />
+                    <input maxLength="50" placeholder="Ville" value={inputs2.city} onChange={(e) => setInputs2({name:inputs2.name,date:inputs2.date,adh:inputs2.adh,nonadh:inputs2.nonadh,description:inputs2.description,city:e.target.value,id:inputs2.id,pic:inputs2.pic})} />
                 </div>
                 <input className="file" type="file" accept="image/png" onChange={(e) => setImajo2(e.target.files[0])} />
                 <div className="ad1">
-                    <input placeholder="Prix adhérent" value={inputs2.adh} onChange={(e) => setInputs2({name:inputs.name,date:inputs2.date,adh:e.target.value,nonadh:inputs2.nonadh,description:inputs2.description,city:inputs2.city,id:inputs2.id,pic:inputs2.pic})} />
-                    <input placeholder="Prix non-adhérent" value={inputs2.nonadh} onChange={(e) => setInputs2({name:inputs2.name,date:inputs2.date,adh:inputs2.adh,nonadh:e.target.value,description:inputs2.description,city:inputs2.city,id:inputs2.id,pic:inputs2.pic})} />
-                    <input placeholder="Description" value={inputs2.description} onChange={(e) => setInputs2({name:inputs2.name,date:inputs2.date,adh:inputs2.adh,nonadh:inputs2.nonadh,description:e.target.value,city:inputs2.city,id:inputs2.id,pic:inputs2.pic})} /><br/>
+                    <input maxLength="10" placeholder="Prix adhérent" value={inputs2.adh} onChange={(e) => setInputs2({name:inputs.name,date:inputs2.date,adh:e.target.value,nonadh:inputs2.nonadh,description:inputs2.description,city:inputs2.city,id:inputs2.id,pic:inputs2.pic})} />
+                    <input maxLength="10" placeholder="Prix non-adhérent" value={inputs2.nonadh} onChange={(e) => setInputs2({name:inputs2.name,date:inputs2.date,adh:inputs2.adh,nonadh:e.target.value,description:inputs2.description,city:inputs2.city,id:inputs2.id,pic:inputs2.pic})} />
+                    <input maxLength="5000" placeholder="Description" value={inputs2.description} onChange={(e) => setInputs2({name:inputs2.name,date:inputs2.date,adh:inputs2.adh,nonadh:inputs2.nonadh,description:e.target.value,city:inputs2.city,id:inputs2.id,pic:inputs2.pic})} /><br/>
                 </div>
                 <img onClick={() => submit2()} title="valider" src={Tick} alt="tick" width="50" height="50" />
             </div>}
