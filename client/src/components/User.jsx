@@ -56,7 +56,7 @@ function User({user, setUser}) {
             <div className="perso">
                 {modify ? <img title="annuler" onClick={() => {setModify(false);setInputs({mail:user.polyuser_mail,pseudo:user.polyuser_name,description:user.polyuser_description})}} src={Cross} alt="cross" width="50" height="50"/> : <img title="modifier" onClick={() => setModify(true)} src={Pen} alt="pen" width="50" height="50" />}
                 {modify ? <img title="valider" onClick={() => update()} className="img2" src={Tick} alt="tick" width="40" height="40"/> : null}
-                {modify ? <input placeholder={holder2} maxLength="20" className="user1" value={inputs.pseudo} onChange={(e) => setInputs({mail:inputs.mail, pseudo:e.target.value, description:inputs.description})}/> : <h1>{user.polyuser_name} {"#"+("000"+user.polyuser_id).slice(-4)}</h1>}
+                {modify ? <input placeholder={holder2} maxLength="20" className="user1" value={inputs.pseudo} onChange={(e) => setInputs({mail:inputs.mail, pseudo:e.target.value.replace(/[^a-zA-Z0-9]/g,'').replace(/\s+/g, ''), description:inputs.description})}/> : <h1>{user.polyuser_name} {"#"+("000"+user.polyuser_id).slice(-4)}</h1>}
                 {modify ? <input placeholder={holder} maxLength="100" type="email" className="user2" value={inputs.mail} onChange={(e) => setInputs({mail:e.target.value, pseudo:inputs.pseudo, description:inputs.description})}/> : <h2>{user.polyuser_mail}</h2>}
                 <h3>Rôle : {user.polyuser_role}</h3>
                 {modify ? <input className="user3" maxLength="150" value={inputs.description} onChange={(e) => setInputs({mail:inputs.mail, pseudo:inputs.pseudo, description:e.target.value})}/> : <p>{user.polyuser_description}</p>}

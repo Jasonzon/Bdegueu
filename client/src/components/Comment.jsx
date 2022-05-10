@@ -5,6 +5,7 @@ import Dislike from "../assets/dislike.png"
 import Disliked from "../assets/disliked.png"
 import {useState, useEffect} from "react"
 import Trash from "../assets/trash.png"
+import {Link} from "react-router-dom"
 
 function Comment({comment_polyuser, comment_description, created_at, user, setUser, id, comments, setComments, onDel, setOnDel}) {
 
@@ -118,9 +119,11 @@ function Comment({comment_polyuser, comment_description, created_at, user, setUs
         })
         const parseRes = await res.json() 
         const slice = parseRes.slice("").filter(({likes_polyuser}) => user && user.polyuser_id === likes_polyuser)
+        const body = {polyuser:user.polyuser_id}
         const res2 = await fetch(`http://localhost:5000/likes_comment/id/${slice[0].likes_id}`, {
             method: "DELETE",
-            headers: {token: localStorage.token}
+            headers: {token: localStorage.token},
+            body:JSON.stringify(body)
         })
     }
 
@@ -142,7 +145,7 @@ function Comment({comment_polyuser, comment_description, created_at, user, setUs
     return (
         <div className="comment">
             {!(user && user.polyuser_name) ? null : <> {del ? <img onClick={() => delet(id)} className="trash-del" alt="trash" src={Trash} width="25" height="30"/> : <img onClick={() => {setDel(true);setOnDel(id)}} className="trash" alt="trash" src={Trash} width="25" height="30"/>} </> }
-            <span className="nam">{name} {"#"+("000"+newId).slice(-4)}</span>
+            <Link to={"/users/" + comment_polyuser}><span className="nam">{name} {"#"+("000"+newId).slice(-4)}</span></Link>
             <p>{comment_description}</p>
             {user && user.polyuser_name ?
             <div className="thumbs">

@@ -167,7 +167,9 @@ function Rezo({user, setUser}) {
                         <h2 className="flex-rezo">{rezo_city}</h2>
                         <h2>{rezo_date}</h2>
                         <h3>Adhérent : {rezo_adh}€ / Non-adhérent : {rezo_nonadh}€</h3>
+                        <a target="_blank" href={rezo_pic}>
                         <img className="artpic" src={rezo_pic} alt="rezo_pic" />
+                        </a>
                         <p>{rezo_description}</p>
                         <span className="tim">{created_at.substr(0,10)}</span>
                     </div>

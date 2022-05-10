@@ -122,9 +122,11 @@ function Article({user, setUser}) {
         })
         const parseRes = await res.json() 
         const slice = parseRes.slice("").filter(({likes_polyuser}) => user && user.polyuser_id === likes_polyuser)
+        const body = {polyuser:user.polyuser_id}
         const res2 = await fetch(`http://localhost:5000/likes_article/id/${slice[0].likes_id}`, {
             method: "DELETE",
-            headers: {token: localStorage.token}
+            headers: {token: localStorage.token},
+            body:JSON.stringify(body)
         })
     }
 
@@ -220,7 +222,9 @@ function Article({user, setUser}) {
                 {!(user && user.polyuser_name) ? null : <> {del ? <Link to="/"><img onClick={() => delet(id)} className="trash-del" alt="trash" src={Trash} width="25" height="30"/></Link> : <img onClick={() => setDel(true)} className="trash" alt="trash" src={Trash} width="25" height="30"/>} </> }
                 {!(user && user.polyuser_name) ? null : <> {modif ? <img onClick={() => {setModif(false);setImajo({vide:true})}} className="cross" src={Cross} alt="cross" width="35" height="35"/> : <img onClick={() => setModif(true)} className="pen" alt="pen" src={Pen} width="35" height="35"/>} </> }
                 <h2>{article.type}</h2>
+                <a target="_blank" href={article.pic}>
                 <img className="artpic" src={article.pic} alt="pic"/>
+                </a>
                 <p>{article.description}</p>
                 {user && user.polyuser_name ?
                 <div className="thumbs">

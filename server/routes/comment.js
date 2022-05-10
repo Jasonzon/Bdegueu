@@ -41,9 +41,10 @@ router.get("/article/:id", async (req,res) => {
 
 router.post("/", auth, async (req,res) => {
     try {
-        const {description,polyuser, article} = req.body
-        if (req.polyuser) {
-            const newComment = await pool.query("INSERT INTO comment (comment_article, comment_polyuser, comment_description) VALUES ($1, $2, $3) RETURNING *", [article, polyuser, description])
+        const {description,article} = req.body
+        const user = req.polyuser
+        if (user) {
+            const newComment = await pool.query("INSERT INTO comment (comment_article, comment_polyuser, comment_description) VALUES ($1, $2, $3) RETURNING *", [article, user, description])
             res.json(newComment.rows[0])
         }
         else {
@@ -59,8 +60,10 @@ router.post("/", auth, async (req,res) => {
 router.delete("/id/:id", auth, async (req,res) => {
     try {
         const {id} = req.params
-        if (req.polyuser) {
-            const deleteComment = await pool.query("DELETE FROM comment WHERE comment_id = $1 RETURNING *",[id])
+        const {polyuser} = req.body
+        const user = req.polyuser
+        if (user && user === polyuser) {
+            const deleteComment = await pool.query("DELETE FROM comment WHERE comment_id = $1 and comment_polyuser = $2 RETURNING *",[id, user])
             res.json(deleteComment.rows[0])
         }
         else {

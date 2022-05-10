@@ -8,6 +8,7 @@ import Articles from "./Articles"
 import Comments from "./Comments"
 import Compte from "./Compte"
 import Article from "./Article"
+import Users from "./Users"
 import { useState, useEffect } from "react";
 
 function Main() {
@@ -46,6 +47,7 @@ function Main() {
                 <Route exact path="/comments" element={<Comments user={user} setUser={setUser} comment_id={1} />} />
                 <Route exact path="/account" element ={<Compte user={user} setUser={setUser} connection={connection} setConnection={setConnection} />} />
                 <Route exact path="/articles/:id" element={<Article user={user} setUser={setUser} />} />
+                <Route exact path="/users/:id" element={<Users />} />
             </Routes>
         </Router>
     )

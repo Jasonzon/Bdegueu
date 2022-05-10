@@ -1,6 +1,5 @@
 import "../styles/Connection.css"
 import {useState} from "react"
-const bcrypt = require("bcryptjs")
 
 function Connection({connection, setConnection, user, setUser}) {
 
@@ -14,13 +13,15 @@ function Connection({connection, setConnection, user, setUser}) {
 
     async function submit(e) {
         e.preventDefault()
-        const res = await fetch(`http://localhost:5000/polyuser/mail/${inputs.mail}`, {
-            method: "GET"
+        const body = {mail:inputs.mail,password:inputs.password}
+        const res = await fetch(`http://localhost:5000/polyuser/connect`, {
+            method: "POST",
+            headers: {"Content-Type" : "application/json"},
+            body:JSON.stringify(body)
         })
         const parseRes = await res.json()
-        if (parseRes.rows.length !== 0) {
-            const validPassword = await bcrypt.compare(inputs.password,parseRes.rows[0].polyuser_password)
-            if (validPassword) {
+        if (parseRes.rows) {
+            if (parseRes.token) {
                 localStorage.setItem("token",parseRes.token)
                 setUser(parseRes.rows[0])
             }

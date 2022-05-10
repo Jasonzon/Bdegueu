@@ -26,3 +26,7 @@
 .connect {
     padding-right:25%;
 }
+
+.comment .nam:hover {
+    color:white;
+}

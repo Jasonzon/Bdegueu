@@ -1,7 +1,5 @@
 import "../styles/Register.css"
 import {useState} from "react"
-const bcrypt = require('bcryptjs')
-
 function Register({connection, setConnection, user, setUser}) {
 
     const [inputs, setInputs] = useState({
@@ -18,11 +16,8 @@ function Register({connection, setConnection, user, setUser}) {
             method: "GET"
         })
         const parseRes = await res.json()
-        if (parseRes.rows.length === 0) {
-            const saltRound = 10
-            const salt = await bcrypt.genSaltSync(saltRound)
-            const bcryptPassword = await bcrypt.hashSync(inputs.password, salt)
-            const body = {mail:inputs.mail, name:inputs.pseudo, password:bcryptPassword}
+        if (parseRes.length === 0) {
+            const body = {mail:inputs.mail, name:inputs.pseudo, password:inputs.password}
             const res2 = await fetch("http://localhost:5000/polyuser", {
                 method: "POST",
                 headers: {"Content-Type" : "application/json"},
@@ -30,7 +25,7 @@ function Register({connection, setConnection, user, setUser}) {
             })
             const parseRes2 = await res2.json()
             localStorage.setItem("token",parseRes2.token)
-            setUser(parseRes2.user)
+            setUser(parseRes2.rows[0])
         }
         else {
             e.target.form[0].value=""
@@ -48,7 +43,7 @@ function Register({connection, setConnection, user, setUser}) {
                 <label>Mail</label><br/>
                 <input placeholder={holder} maxLength="100" required onChange={(e) => {setInputs({mail:e.target.value, pseudo:inputs.pseudo, password:inputs.password});setHolder("")}} value={inputs.mail} type="email" id="email" name="email"/><br/>
                 <label>Pseudo</label><br/>
-                <input required maxLength="20" onChange={(e) => setInputs({mail:inputs.mail, pseudo:e.target.value, password:inputs.password})} value={inputs.pseudo} type="text" id="epseudo" name="epseudo"/><br/>
+                <input required maxLength="20" onChange={(e) => setInputs({mail:inputs.mail, pseudo:e.target.value.replace(/[^a-zA-Z0-9 ]/g,''), password:inputs.password})} value={inputs.pseudo} type="text" id="epseudo" name="epseudo"/><br/>
                 <label>Mot de passe</label><br/>
                 <input required maxLength="50" onChange={(e) => setInputs({mail:inputs.mail, pseudo:inputs.pseudo, password:e.target.value})} value={inputs.password} type="password" id="epassword" name="epassword"/><br/>
                 <button type="submit" onClick={(e) => submit(e)}>S'enregistrer</button>
