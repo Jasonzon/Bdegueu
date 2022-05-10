@@ -11,6 +11,7 @@ import Pen from "../assets/pen.png"
 import {Link} from "react-router-dom"
 import Tick from "../assets/tick.png"
 import Cross from "../assets/cross.png"
+import Loader from "../assets/gif.gif"
 
 function Article({user, setUser}) {
 
@@ -24,6 +25,8 @@ function Article({user, setUser}) {
         likes:0,
         dislikes:0
     })
+
+    const [loaded, setLoaded] = useState(false)
 
     const [liked, setLiked] = useState(0)
     const [nbLikes, setNbLikes] = useState(0)
@@ -208,6 +211,12 @@ function Article({user, setUser}) {
         }
     }
 
+    useEffect(() => {
+        if (article.name !== "") {
+            setLoaded(true)
+        }
+    },[article])
+
     return (
         <div>
             {!modif ? null : <div className="ade padding">
@@ -217,15 +226,18 @@ function Article({user, setUser}) {
                 <input maxLength="5000" placeholder="Description" value={inputs.description} onChange={(e) => setInputs({name:inputs.name, type:inputs.type,description:e.target.value})} />
                 <img onClick={() => submit()} title="valider" src={Tick} alt="tick" width="50" height="50" />
             </div>}
+            {loaded ?
             <div className="article">
                 <h1 className="title">{article.name}</h1>
                 {!(user && user.polyuser_name) ? null : <> {del ? <Link to="/"><img onClick={() => delet(id)} className="trash-del" alt="trash" src={Trash} width="25" height="30"/></Link> : <img onClick={() => setDel(true)} className="trash" alt="trash" src={Trash} width="25" height="30"/>} </> }
                 {!(user && user.polyuser_name) ? null : <> {modif ? <img onClick={() => {setModif(false);setImajo({vide:true})}} className="cross" src={Cross} alt="cross" width="35" height="35"/> : <img onClick={() => setModif(true)} className="pen" alt="pen" src={Pen} width="35" height="35"/>} </> }
                 <h2>{article.type}</h2>
+                <div className="flex-article">
                 <a target="_blank" href={article.pic}>
                 <img className="artpic" src={article.pic} alt="pic"/>
                 </a>
                 <p>{article.description}</p>
+                </div>
                 {user && user.polyuser_name ?
                 <div className="thumbs">
                     <div className="like">
@@ -240,7 +252,7 @@ function Article({user, setUser}) {
                     </div>
                 </div> : <span className="connect">Connectez vous pour donner votre avis</span> }
                 <span className="tim">{article.time.substr(0, 10)}</span>
-            </div>
+            </div> : <img className="loader" alt="loader" src={Loader} />}
             <Comments user={user} setUser={setUser} comment_id={id} />
         </div>
     )

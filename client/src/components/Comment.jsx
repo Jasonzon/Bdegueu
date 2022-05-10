@@ -7,7 +7,7 @@ import {useState, useEffect} from "react"
 import Trash from "../assets/trash.png"
 import {Link} from "react-router-dom"
 
-function Comment({comment_polyuser, comment_description, created_at, user, setUser, id, comments, setComments, onDel, setOnDel}) {
+function Comment({comment_polyuser, comment_description, created_at, user, setUser, id, comments, setComments, onDel, setOnDel, loaded, setLoaded}) {
 
     const [liked, setLiked] = useState(0)
     const [name, setName] = useState("")
@@ -47,6 +47,14 @@ function Comment({comment_polyuser, comment_description, created_at, user, setUs
             getLikes()
         }
     },[user])
+
+    useEffect(() => {
+        console.log("UI")
+        if (name !== "" && newId !== 0) {
+            console.log("OK")
+            setLoaded(loaded+1)
+        }
+    },[name,newId])
 
     const [nbLikes, setNbLikes] = useState(0)
     const [nbDislikes, setNbDislikes] = useState(0)

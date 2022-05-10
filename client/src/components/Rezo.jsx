@@ -4,6 +4,7 @@ import Tick from "../assets/tick.png"
 import Trash from "../assets/trash.png"
 import Pen from "../assets/pen.png"
 import Cross from "../assets/cross.png"
+import Loader from "../assets/gif.gif"
 
 function Rezo({user, setUser}) {
 
@@ -123,6 +124,14 @@ function Rezo({user, setUser}) {
         }
     }
 
+    const [loaded, setLoaded] = useState(false)
+
+    useEffect(() => {
+        if (rezos.length !== 0) {
+            setLoaded(true)
+        }
+    },[rezos])
+
     return (
         <div>
             <div className="connection">
@@ -158,7 +167,7 @@ function Rezo({user, setUser}) {
                 </div>
                 <img onClick={() => submit2()} title="valider" src={Tick} alt="tick" width="50" height="50" />
             </div>}
-            <ul className="coco">
+            <ul className={`coco ${loaded ? null : "none"}`}>
                 {rezos.slice("").reverse().map(({rezo_pic, rezo_name, rezo_city, rezo_date, rezo_adh, rezo_nonadh, rezo_description, created_at, rezo_id},index) => 
                     <div className="rezo">
                         {!(user && user.polyuser_name) ? null : <> {del[index] ? <img onClick={() => delet(rezo_id)} className="trash-del" alt="trash" src={Trash} width="25" height="30"/> : <img onClick={() => setDel(rezos.map((tra,ind) => ind === index ? true : false))} className="trash" alt="trash" src={Trash} width="25" height="30"/>} </> }
@@ -167,14 +176,17 @@ function Rezo({user, setUser}) {
                         <h2 className="flex-rezo">{rezo_city}</h2>
                         <h2>{rezo_date}</h2>
                         <h3>Adhérent : {rezo_adh}€ / Non-adhérent : {rezo_nonadh}€</h3>
-                        <a target="_blank" href={rezo_pic}>
-                        <img className="artpic" src={rezo_pic} alt="rezo_pic" />
-                        </a>
-                        <p>{rezo_description}</p>
+                        <div className="flex-article">
+                            <a target="_blank" href={rezo_pic}>
+                                <img className="artpic" src={rezo_pic} alt="rezo_pic" />
+                            </a>
+                            <p>{rezo_description}</p>
+                        </div>
                         <span className="tim">{created_at.substr(0,10)}</span>
                     </div>
                 )}
             </ul>
+            {loaded ? null : <img src={Loader} alt="loader" className="loader" />}
             <div className="numbers">
                 <div className="navigation">
                     <button onClick={() => setIndexPage(1)}>1</button>

@@ -2,6 +2,7 @@ import "../styles/Comments.css"
 import {useState, useEffect} from "react"
 import Comment from "./Comment"
 import Tick from "../assets/tick.png"
+import Loader from "../assets/gif.gif"
 
 function Comments({user, setUser, comment_id}) {
 
@@ -43,6 +44,8 @@ function Comments({user, setUser, comment_id}) {
         }
     }
 
+    const [loaded, setLoaded] = useState(0)
+
     return (
         <div>
             <div className="connection">
@@ -53,7 +56,7 @@ function Comments({user, setUser, comment_id}) {
                 <input placeholder="Ajoutez un commentaire" value={input} onChange={(e) => setInput(e.target.value)} maxLength="500" />
                 <img onClick={() => publier()} title="valider" src={Tick} alt="tick" width="50" height="50" />
             </div>}
-            <ul className="coco">
+            <ul className={`coco ${comments.length !== 0 && comments.length === loaded ? null : "none"}`}>
                 {comments.slice("").reverse().map(({comment_id, comment_description, comment_polyuser, created_at, comment_likes, comment_dislikes},index) => <>
                     {(index < indexPage*10 && index >= (indexPage-1)*10) ?
                     <li key={created_at}>
@@ -68,10 +71,13 @@ function Comments({user, setUser, comment_id}) {
                             setComments={setComments}
                             onDel={onDel}
                             setOnDel={setOnDel}
+                            loaded={loaded}
+                            setLoaded={setLoaded}
                         />
                     </li> : null } </>
                 )}
-            </ul>
+            </ul> 
+            {comments.length !== 0 && loaded === comments.length ? null : <img alt="loader" className="loader" src={Loader} />}
             <div className="numbers">
                 <div className="navigation">
                     <button onClick={() => setIndexPage(1)}>1</button>

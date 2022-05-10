@@ -4,6 +4,7 @@ import Tick from "../assets/tick.png"
 import Trash from "../assets/trash.png"
 import Pen from "../assets/pen.png"
 import Cross from "../assets/cross.png"
+import Loader from "../assets/gif.gif"
 
 function Goodies({user, setUser}) {
 
@@ -126,7 +127,7 @@ function Goodies({user, setUser}) {
                 <input type="file" accept="image/png" onChange={(e) => setImajo2(e.target.files[0])} />
                 <img onClick={() => submit2()} title="valider" src={Tick} alt="tick" width="50" height="50" />
             </div>}
-            <ul className="good">
+            <ul className={`good ${goodies.length !== 0 ? null : "none"}`}>
                 {goodies.map(({goodies_name, goodies_pic, goodies_price, goodies_id},index) =>
                     <div className="goodies">
                         {!(user && user.polyuser_name) ? null : <> {del[index] ? <img onClick={() => delet(goodies_id)} className="trash-del" alt="trash" src={Trash} width="25" height="30"/> : <img onClick={() => setDel(goodies.map((tra,ind) => ind === index ? true : false))} className="trash" alt="trash" src={Trash} width="25" height="30"/>} </> }
@@ -139,6 +140,7 @@ function Goodies({user, setUser}) {
                     </div>
                 )}
             </ul>
+            {goodies.length !== 0 ? null : <img alt="loader" className="loader" src={Loader} />}
         </div>
     )
 }
