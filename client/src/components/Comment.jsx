@@ -49,9 +49,7 @@ function Comment({comment_polyuser, comment_description, created_at, user, setUs
     },[user])
 
     useEffect(() => {
-        console.log("UI")
         if (name !== "" && newId !== 0) {
-            console.log("OK")
             setLoaded(loaded+1)
         }
     },[name,newId])
@@ -112,6 +110,7 @@ function Comment({comment_polyuser, comment_description, created_at, user, setUs
                 headers: {"Content-Type" : "application/json",token: localStorage.token},
                 body:JSON.stringify(body)
             })
+            const parseRes2 = await res2.json()
         }
     }
 

@@ -29,9 +29,9 @@ function User({user, setUser}) {
                 method: "GET"
             })
             const parseRes = await res.json()
-            if (parseRes.rows.length === 0 || parseRes.rows[0].polyuser_mail === inputs.mail) {
+            if (parseRes.length === 0 || parseRes[0].polyuser_mail === inputs.mail) {
                 const body = {name:inputs.pseudo, mail:inputs.mail, description:inputs.description}
-                const res2 = await fetch(`/polyuser/id/${parseRes.rows[0].polyuser_id}`, {
+                const res2 = await fetch(`/polyuser/id/${parseRes[0].polyuser_id}`, {
                     method: "PUT",
                     headers: {"Content-Type" : "application/json",token: localStorage.token},
                     body:JSON.stringify(body)
