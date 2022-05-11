@@ -3,8 +3,13 @@ const app = express()
 const cors = require("cors")
 const pool = require("./db")
 const PORT = process.env.PORT || 5000
+const path = require("path")
 
 //middlewares
+
+if (process.env.NODE_ENV === "production") {
+    app.use(express.static(path.join(__dirname, "client/build")))
+}
 
 app.use(cors())
 app.use(express.json())
@@ -25,5 +30,5 @@ app.use("/likes_comment", require("./routes/likes_comment"))
 
 
 app.listen(PORT, () => {
-    console.log(`Server is starting on port 5000`)
+    console.log(`Server is starting on port ${PORT}`)
 })

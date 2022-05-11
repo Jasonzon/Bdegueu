@@ -11,7 +11,7 @@ function Rezo({user, setUser}) {
     const [rezos, setRezos] = useState([])
 
     async function getRezos() {
-        const res = await fetch("http://localhost:5000/rezo", {
+        const res = await fetch("/rezo", {
             method: "GET"
         })
         const parseRes = await res.json()
@@ -46,7 +46,7 @@ function Rezo({user, setUser}) {
             })
             const parseRes = await res.json()
             const body = {name:inputs.name,date:inputs.date,pic:parseRes.secure_url,description:inputs.description,adh:inputs.adh,nonadh:inputs.nonadh,city:inputs.city}
-            const res2 = await fetch("http://localhost:5000/rezo", {
+            const res2 = await fetch("/rezo", {
                 method: "POST",
                 headers: {"Content-Type" : "application/json",token: localStorage.token},
                 body:JSON.stringify(body)
@@ -71,7 +71,7 @@ function Rezo({user, setUser}) {
     const [del, setDel] = useState(rezos.map((rez) => false))
 
     async function delet(id) {
-        const res = await fetch(`http://localhost:5000/rezo/id/${id}`, {
+        const res = await fetch(`/rezo/id/${id}`, {
             method: "DELETE",
             headers: {token: localStorage.token}
         })
@@ -98,7 +98,7 @@ function Rezo({user, setUser}) {
                 })
                 const parseRes = await res.json()
                 const body = {name:inputs2.name,adh:inputs2.adh,nonadh:inputs2.nonadh,description:inputs2.description,date:inputs2.date,city:inputs2.city,pic:parseRes.secure_url}
-                const res2 = await fetch(`http://localhost:5000/rezo/id/${inputs2.id}`, {
+                const res2 = await fetch(`/rezo/id/${inputs2.id}`, {
                     method: "PUT",
                     headers: {"Content-Type" : "application/json",token: localStorage.token},
                     body:JSON.stringify(body)
@@ -111,7 +111,7 @@ function Rezo({user, setUser}) {
             }
             else {
                 const body = {name:inputs2.name,adh:inputs2.adh,nonadh:inputs2.nonadh,description:inputs2.description,date:inputs2.date,city:inputs2.city,pic:inputs2.pic}
-                const res2 = await fetch(`http://localhost:5000/rezo/id/${inputs2.id}`, {
+                const res2 = await fetch(`/rezo/id/${inputs2.id}`, {
                     method: "PUT",
                     headers: {"Content-Type" : "application/json",token: localStorage.token},
                     body:JSON.stringify(body)

@@ -25,13 +25,13 @@ function User({user, setUser}) {
             setHolder2("Entrez un pseudo")
         }
         if (inputs.pseudo !== "" && inputs.mail !== "") {
-            const res = await fetch(`http://localhost:5000/polyuser/mail/${inputs.mail}`, {
+            const res = await fetch(`/polyuser/mail/${inputs.mail}`, {
                 method: "GET"
             })
             const parseRes = await res.json()
             if (parseRes.rows.length === 0 || parseRes.rows[0].polyuser_mail === inputs.mail) {
                 const body = {name:inputs.pseudo, mail:inputs.mail, description:inputs.description}
-                const res2 = await fetch(`http://localhost:5000/polyuser/id/${parseRes.rows[0].polyuser_id}`, {
+                const res2 = await fetch(`/polyuser/id/${parseRes.rows[0].polyuser_id}`, {
                     method: "PUT",
                     headers: {"Content-Type" : "application/json",token: localStorage.token},
                     body:JSON.stringify(body)

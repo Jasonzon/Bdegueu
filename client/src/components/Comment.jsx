@@ -14,7 +14,7 @@ function Comment({comment_polyuser, comment_description, created_at, user, setUs
     const [newId, setNewId] = useState(0)
 
     async function getLikes() {
-        const res = await fetch(`http://localhost:5000/likes_comment/id/${id}`, {
+        const res = await fetch(`/likes_comment/id/${id}`, {
             method: "GET"
         })
         const parseRes = await res.json()
@@ -30,7 +30,7 @@ function Comment({comment_polyuser, comment_description, created_at, user, setUs
     }
 
     async function getUser() {
-        const res = await fetch(`http://localhost:5000/polyuser/id/${comment_polyuser}`, {
+        const res = await fetch(`/polyuser/id/${comment_polyuser}`, {
             method: "GET"
         })
         const parseRes = await res.json()
@@ -60,7 +60,7 @@ function Comment({comment_polyuser, comment_description, created_at, user, setUs
     const [nbDislikes, setNbDislikes] = useState(0)
 
     async function getLikes() {
-        const res = await fetch(`http://localhost:5000/likes_comment/comment/${id}`, {
+        const res = await fetch(`/likes_comment/comment/${id}`, {
             method: "GET"
         })
         const parseRes = await res.json()
@@ -78,7 +78,7 @@ function Comment({comment_polyuser, comment_description, created_at, user, setUs
 
     async function addLike(int) {
         setLiked(int)
-        const res = await fetch(`http://localhost:5000/likes_comment/comment/${id}`, {
+        const res = await fetch(`/likes_comment/comment/${id}`, {
             method: "GET"
         })
         const parseRes = await res.json()
@@ -93,7 +93,7 @@ function Comment({comment_polyuser, comment_description, created_at, user, setUs
                 setNbLikes(nbLikes-1)
             }
             const body = {liked:int === -1 ? false : true,polyuser:user.polyuser_id,comment:id}
-            const res2 = await fetch(`http://localhost:5000/likes_comment/id/${slice[0].likes_id}`, {
+            const res2 = await fetch(`/likes_comment/id/${slice[0].likes_id}`, {
                 method: "PUT",
                 headers: {"Content-Type" : "application/json",token: localStorage.token},
                 body:JSON.stringify(body)
@@ -107,7 +107,7 @@ function Comment({comment_polyuser, comment_description, created_at, user, setUs
                 setNbDislikes(nbDislikes+1)
             }
             const body = {liked:int === -1 ? false : true,polyuser:user.polyuser_id,comment:id}
-            const res2 = await fetch("http://localhost:5000/likes_comment", {
+            const res2 = await fetch("/likes_comment", {
                 method: "POST",
                 headers: {"Content-Type" : "application/json",token: localStorage.token},
                 body:JSON.stringify(body)
@@ -122,13 +122,13 @@ function Comment({comment_polyuser, comment_description, created_at, user, setUs
         else {
             setNbDislikes(nbDislikes-1)
         }
-        const res = await fetch(`http://localhost:5000/likes_comment/comment/${id}`, {
+        const res = await fetch(`/likes_comment/comment/${id}`, {
             method: "GET"
         })
         const parseRes = await res.json() 
         const slice = parseRes.slice("").filter(({likes_polyuser}) => user && user.polyuser_id === likes_polyuser)
         const body = {polyuser:user.polyuser_id}
-        const res2 = await fetch(`http://localhost:5000/likes_comment/id/${slice[0].likes_id}`, {
+        const res2 = await fetch(`/likes_comment/id/${slice[0].likes_id}`, {
             method: "DELETE",
             headers: {token: localStorage.token},
             body:JSON.stringify(body)
@@ -138,7 +138,7 @@ function Comment({comment_polyuser, comment_description, created_at, user, setUs
     const [del, setDel] = useState(false)
 
     async function delet(id) {
-        const res = await fetch(`http://localhost:5000/comment/id/${id}`, {
+        const res = await fetch(`/comment/id/${id}`, {
             method: "DELETE",
             headers: {token: localStorage.token}
         })

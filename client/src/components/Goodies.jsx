@@ -17,7 +17,7 @@ function Goodies({user, setUser}) {
     const [add, setAdd] = useState(false)
 
     async function getGoodies() {
-        const res = await fetch("http://localhost:5000/goodies", {
+        const res = await fetch("/goodies", {
             method: "GET"
         })
         const parseRes = await res.json()
@@ -39,7 +39,7 @@ function Goodies({user, setUser}) {
             })
             const parseRes = await res.json()
             const body = {name:inputs.name,price:inputs.price,pic:parseRes.secure_url}
-            const res2 = await fetch("http://localhost:5000/goodies", {
+            const res2 = await fetch("/goodies", {
                 method: "POST",
                 headers: {"Content-Type" : "application/json",token: localStorage.token},
                 body:JSON.stringify(body)
@@ -55,7 +55,7 @@ function Goodies({user, setUser}) {
     const [del, setDel] = useState(goodies.map((goodie) => false))
 
     async function delet(id) {
-        const res = await fetch(`http://localhost:5000/goodies/id/${id}`, {
+        const res = await fetch(`/goodies/id/${id}`, {
             method: "DELETE",
             headers: {token: localStorage.token}
         })
@@ -82,7 +82,7 @@ function Goodies({user, setUser}) {
                 })
                 const parseRes = await res.json()
                 const body = {name:inputs2.name,price:inputs2.price,pic:parseRes.secure_url}
-                const res2 = await fetch(`http://localhost:5000/goodies/id/${inputs2.id}`, {
+                const res2 = await fetch(`/goodies/id/${inputs2.id}`, {
                     method: "PUT",
                     headers: {"Content-Type" : "application/json",token: localStorage.token},
                     body:JSON.stringify(body)
@@ -95,7 +95,7 @@ function Goodies({user, setUser}) {
             }
             else {
                 const body = {name:inputs2.name,price:inputs2.price,pic:inputs2.pic}
-                const res2 = await fetch(`http://localhost:5000/goodies/id/${inputs2.id}`, {
+                const res2 = await fetch(`/goodies/id/${inputs2.id}`, {
                     method: "PUT",
                     headers: {"Content-Type" : "application/json",token: localStorage.token},
                     body:JSON.stringify(body)

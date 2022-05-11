@@ -8,7 +8,7 @@ function Articles({user, setUser}) {
     const [articles, setArticles] = useState([])
 
     async function getArticles() {
-        const res = await fetch("http://localhost:5000/article", {
+        const res = await fetch("/article", {
             method: "GET"
         })
         const parseRes = await res.json()
@@ -40,7 +40,7 @@ function Articles({user, setUser}) {
             })
             const parseRes = await res.json()
             const body = {name:inputs.name,type:inputs.type,pic:parseRes.secure_url,description:inputs.description}
-            const res2 = await fetch("http://localhost:5000/article", {
+            const res2 = await fetch("/article", {
                 method: "POST",
                 headers: {"Content-Type" : "application/json",token: localStorage.token},
                 body:JSON.stringify(body)

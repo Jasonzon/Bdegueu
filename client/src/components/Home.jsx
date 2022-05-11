@@ -8,7 +8,7 @@ function Home() {
   const [articles, setArticles] = useState([])
 
   async function getArticles() {
-      const res = await fetch("http://localhost:5000/article", {
+      const res = await fetch("/article", {
           method: "GET"
       })
       const parseRes = await res.json()

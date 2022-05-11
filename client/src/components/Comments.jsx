@@ -12,7 +12,7 @@ function Comments({user, setUser, comment_id}) {
     const [indexPage, setIndexPage] = useState(1)
 
     async function getComments() {
-        const res = await fetch(`http://localhost:5000/comment/article/${comment_id}`, {
+        const res = await fetch(`/comment/article/${comment_id}`, {
             method: "GET"
         })
         const parseRes = await res.json()
@@ -32,7 +32,7 @@ function Comments({user, setUser, comment_id}) {
     async function publier() {
         if (input !== "") {
             const body = {description:input,article:comment_id}
-            const res = await fetch("http://localhost:5000/comment", {
+            const res = await fetch("/comment", {
                 method: "POST",
                 headers: {"Content-Type" : "application/json",token: localStorage.token},
                 body:JSON.stringify(body)

@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/static/css/main.a4eb8d17.css",
+    "main.js": "/static/js/main.20652676.js",
+    "static/media/gif.gif": "/static/media/gif.b04e671ed2c9e89b7471.gif",
+    "static/media/bdegueu.png": "/static/media/bdegueu.e3d4a6efaf6227861eef.png",
+    "static/media/bdegueu2.png": "/static/media/bdegueu2.65b9ae745fff03d32a83.png",
+    "static/media/coolvetica.otf": "/static/media/coolvetica.5363e58a07461bacfd1a.otf",
+    "static/media/tick.png": "/static/media/tick.76696e9619f70d6e6dd9.png",
+    "static/media/cross.png": "/static/media/cross.ed15a20777875ccc5d08.png",
+    "static/media/trash.png": "/static/media/trash.358bc63def1fe80a056f.png",
+    "static/media/dislike.png": "/static/media/dislike.f383e2068d4ad7d9ae64.png",
+    "static/media/like.png": "/static/media/like.64c18a419d4ca4aa59c8.png",
+    "index.html": "/index.html",
+    "main.a4eb8d17.css.map": "/static/css/main.a4eb8d17.css.map",
+    "main.20652676.js.map": "/static/js/main.20652676.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.a4eb8d17.css",
+    "static/js/main.20652676.js"
+  ]
+}

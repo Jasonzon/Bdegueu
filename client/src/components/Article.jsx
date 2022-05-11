@@ -33,7 +33,7 @@ function Article({user, setUser}) {
     const [nbDislikes, setNbDislikes] = useState(0)
 
     async function getArticle() {
-        const res = await fetch(`http://localhost:5000/article/id/${id}`, {
+        const res = await fetch(`/article/id/${id}`, {
             method: "GET"
         })
         const parseRes = await res.json()
@@ -55,7 +55,7 @@ function Article({user, setUser}) {
     }
 
     async function getLikes() {
-        const res = await fetch(`http://localhost:5000/likes_article/article/${id}`, {
+        const res = await fetch(`/likes_article/article/${id}`, {
             method: "GET"
         })
         const parseRes = await res.json()
@@ -73,7 +73,7 @@ function Article({user, setUser}) {
 
     async function addLike(int) {
         setLiked(int)
-        const res = await fetch(`http://localhost:5000/likes_article/article/${id}`, {
+        const res = await fetch(`/likes_article/article/${id}`, {
             method: "GET"
         })
         const parseRes = await res.json()
@@ -88,7 +88,7 @@ function Article({user, setUser}) {
                 setNbLikes(nbLikes-1)
             }
             const body = {liked:int === -1 ? false : true,polyuser:user.polyuser_id,article:id}
-            const res2 = await fetch(`http://localhost:5000/likes_article/id/${slice[0].likes_id}`, {
+            const res2 = await fetch(`/likes_article/id/${slice[0].likes_id}`, {
                 method: "PUT",
                 headers: {"Content-Type" : "application/json",token: localStorage.token},
                 body:JSON.stringify(body)
@@ -103,7 +103,7 @@ function Article({user, setUser}) {
                 setNbDislikes(nbDislikes+1)
             }
             const body = {liked:int === -1 ? false : true,polyuser:user.polyuser_id,article:id}
-            const res2 = await fetch("http://localhost:5000/likes_article", {
+            const res2 = await fetch("/likes_article", {
                 method: "POST",
                 headers: {"Content-Type" : "application/json",token: localStorage.token},
                 body:JSON.stringify(body)
@@ -120,13 +120,13 @@ function Article({user, setUser}) {
         else {
             setNbDislikes(nbDislikes-1)
         }
-        const res = await fetch(`http://localhost:5000/likes_article/article/${id}`, {
+        const res = await fetch(`/likes_article/article/${id}`, {
             method: "GET"
         })
         const parseRes = await res.json() 
         const slice = parseRes.slice("").filter(({likes_polyuser}) => user && user.polyuser_id === likes_polyuser)
         const body = {polyuser:user.polyuser_id}
-        const res2 = await fetch(`http://localhost:5000/likes_article/id/${slice[0].likes_id}`, {
+        const res2 = await fetch(`/likes_article/id/${slice[0].likes_id}`, {
             method: "DELETE",
             headers: {token: localStorage.token},
             body:JSON.stringify(body)
@@ -146,7 +146,7 @@ function Article({user, setUser}) {
     const [del, setDel] = useState(false)
 
     async function delet(id) {
-        const res = await fetch(`http://localhost:5000/article/id/${id}`, {
+        const res = await fetch(`/article/id/${id}`, {
             method: "DELETE",
             headers: {token: localStorage.token}
         })
@@ -173,7 +173,7 @@ function Article({user, setUser}) {
                 })
                 const parseRes = await res.json()
                 const body = {name:inputs.name,type:inputs.type,pic:parseRes.secure_url,description:inputs.description}
-                const res2 = await fetch(`http://localhost:5000/article/id/${id}`, {
+                const res2 = await fetch(`/article/id/${id}`, {
                     method: "PUT",
                     headers: {"Content-Type" : "application/json",token: localStorage.token},
                     body:JSON.stringify(body)
@@ -191,7 +191,7 @@ function Article({user, setUser}) {
             }
             else {
                 const body = {name:inputs.name,type:inputs.type,pic:article.pic,description:inputs.description}
-                const res2 = await fetch(`http://localhost:5000/article/id/${id}`, {
+                const res2 = await fetch(`/article/id/${id}`, {
                     method: "PUT",
                     headers: {"Content-Type" : "application/json",token: localStorage.token},
                     body:JSON.stringify(body)

@@ -18,12 +18,12 @@ function Main() {
 
     async function auth() {
         if (localStorage.token) {
-            const res = await fetch("http://localhost:5000/polyuser/auth", {
+            const res = await fetch("/polyuser/auth", {
                 method: "GET",
                 headers: {token: localStorage.token}
             })
             const parseRes = await res.json()
-            const res2 = await fetch(`http://localhost:5000/polyuser/id/${parseRes.polyuser_id}`, {
+            const res2 = await fetch(`/polyuser/id/${parseRes.polyuser_id}`, {
                 method: "GET"
             })
             const parseRes2 = await res2.json()

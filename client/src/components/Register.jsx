@@ -12,13 +12,13 @@ function Register({connection, setConnection, user, setUser}) {
 
     async function submit(e) {
         e.preventDefault()
-        const res = await fetch(`http://localhost:5000/polyuser/mail/${inputs.mail}`, {
+        const res = await fetch(`/polyuser/mail/${inputs.mail}`, {
             method: "GET"
         })
         const parseRes = await res.json()
         if (parseRes.length === 0) {
             const body = {mail:inputs.mail, name:inputs.pseudo, password:inputs.password}
-            const res2 = await fetch("http://localhost:5000/polyuser", {
+            const res2 = await fetch("/polyuser", {
                 method: "POST",
                 headers: {"Content-Type" : "application/json"},
                 body:JSON.stringify(body)

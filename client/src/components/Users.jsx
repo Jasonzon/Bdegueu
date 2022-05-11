@@ -14,7 +14,7 @@ function Users() {
     })
 
     async function getUser() {
-        const res = await fetch(`http://localhost:5000/polyuser/id/${id}`,{
+        const res = await fetch(`/polyuser/id/${id}`,{
             method: "GET"
         })
         const parseRes = await res.json()

@@ -14,7 +14,7 @@ function Connection({connection, setConnection, user, setUser}) {
     async function submit(e) {
         e.preventDefault()
         const body = {mail:inputs.mail,password:inputs.password}
-        const res = await fetch(`http://localhost:5000/polyuser/connect`, {
+        const res = await fetch(`/polyuser/connect`, {
             method: "POST",
             headers: {"Content-Type" : "application/json"},
             body:JSON.stringify(body)
