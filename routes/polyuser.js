@@ -79,6 +79,7 @@ router.post("/connect", async (req,res) => {
     try {
         const {mail, password} = req.body
         const newPolyuser = await pool.query("SELECT * FROM polyuser WHERE polyuser_mail = $1", [mail])
+        console.log(newPolyuser)
         if (newPolyuser.rows.length !== 0) {
             const validPassword = await bcrypt.compare(password,newPolyuser.rows[0].polyuser_password)
             if (validPassword) {

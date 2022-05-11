@@ -19,6 +19,7 @@ function Connection({connection, setConnection, user, setUser}) {
             headers: {"Content-Type" : "application/json"},
             body:JSON.stringify(body)
         })
+        console.log(res)
         const parseRes = await res.json()
         if (parseRes.rows) {
             if (parseRes.token) {

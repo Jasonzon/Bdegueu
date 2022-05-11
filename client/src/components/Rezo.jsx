@@ -87,7 +87,7 @@ function Rezo({user, setUser}) {
     const [imajo2, setImajo2] = useState({vide:true})
 
     async function submit2() {
-        if (inputs2.name !== "" && inputs2.adh !== "" && inputs2.nonadh != "" && inputs2.id !== 0 && inputs2.description !== "" && inputs2.city !== "" && inputs2.date !== "") {
+        if (inputs2.name !== "" && inputs2.adh !== "" && inputs2.nonadh !== "" && inputs2.id !== 0 && inputs2.description !== "" && inputs2.city !== "" && inputs2.date !== "") {
             if (!imajo2.vide) {
                 const formData = new FormData()
                 formData.append("file",imajo2)

@@ -6,6 +6,7 @@ const auth = require("../utils/auth")
 
 router.get("/", async (req,res) => {
     try {
+        console.log("OK")
         const allArticles = await pool.query("SELECT * FROM article")
         res.json(allArticles.rows)
     } catch (err) {
