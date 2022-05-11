@@ -62,7 +62,7 @@ router.delete("/id/:id", auth, async (req,res) => {
         const {id} = req.params
         const {polyuser} = req.body
         const user = req.polyuser
-        if (user && user === polyuser) {
+        if (user && user.toString() === polyuser.toString()) {
             const deleteComment = await pool.query("DELETE FROM comment WHERE comment_id = $1 and comment_polyuser = $2 RETURNING *",[id, user])
             res.json(deleteComment.rows[0])
         }

@@ -78,11 +78,7 @@ router.post("/", async (req,res) => {
 router.post("/connect", async (req,res) => {
     try {
         const {mail, password} = req.body
-        console.log(process.env.NODE_ENV)
-        console.log("AUTH")
-        console.log("OUI",process.env.NODE_ENV)
         const newPolyuser = await pool.query("SELECT * FROM polyuser WHERE polyuser_mail = $1", [mail])
-        console.log(newPolyuser)
         if (newPolyuser.rows.length !== 0) {
             const validPassword = await bcrypt.compare(password,newPolyuser.rows[0].polyuser_password)
             if (validPassword) {
@@ -108,7 +104,7 @@ router.put("/id/:id", auth, async (req,res) => {
         const {id} = req.params
         const {name, mail, description} = req.body
         const user = req.polyuser
-        if (user && user === id) {
+        if (user && user.toString() === id.toString()) {
             const updatePolyuser = await pool.query("UPDATE polyuser SET polyuser_name = $2, polyuser_mail = $3, polyuser_description = $4 WHERE polyuser_id = $1 RETURNING *",[id, name, mail, description])
             res.json(updatePolyuser.rows[0])
         }
