@@ -223,7 +223,7 @@ function Article({user, setUser}) {
                 <input maxLength="50" placeholder="Nom" value={inputs.name} onChange={(e) => setInputs({name:e.target.value,type:inputs.type,description:inputs.description})} />
                 <input maxLength="50" placeholder="Type" value={inputs.type} onChange={(e) => setInputs({name:inputs.name, type:e.target.value,description:inputs.description})} />
                 <input type="file" accept="image/png" onChange={(e) => setImajo(e.target.files[0])} />
-                <input maxLength="5000" placeholder="Description" value={inputs.description} onChange={(e) => setInputs({name:inputs.name, type:inputs.type,description:e.target.value})} />
+                <textarea maxLength="5000" placeholder="Description" value={inputs.description} onChange={(e) => setInputs({name:inputs.name, type:inputs.type,description:e.target.value})} />
                 <img onClick={() => submit()} title="valider" src={Tick} alt="tick" width="50" height="50" />
             </div>}
             {loaded ?
@@ -236,7 +236,7 @@ function Article({user, setUser}) {
                 <a target="_blank" href={article.pic}>
                 <img className="artpic" src={article.pic} alt="pic"/>
                 </a>
-                <p>{article.description}</p>
+                <p className="descc">{article.description}</p>
                 </div>
                 {user && user.polyuser_name ?
                 <div className="thumbs">

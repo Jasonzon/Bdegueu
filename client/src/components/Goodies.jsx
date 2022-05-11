@@ -109,7 +109,7 @@ function Goodies({user, setUser}) {
     }
 
     return (
-        <div>
+        <div className="goodhies">
             <div className="connection">
                 <h1>Goodies</h1>
                 {!(user && user.polyuser_name) ? null : <> {add ? <button onClick={() => setAdd(false)}>Annuler</button> : <button onClick={() => {setAdd(true);setModif(goodies.map((goodie) => false));setInputs2({name:"", price:"", pic:""});setImajo2({vide:true})}}>Ajouter</button>} </> }

@@ -34,7 +34,7 @@ function Register({connection, setConnection, user, setUser}) {
     }
 
     return (
-        <div>
+        <div className="regg">
             <div className="connection">
                 <h1>Enregistrement</h1>
                 <button onClick={() => setConnection(true)}>Déjà inscrit ?</button>

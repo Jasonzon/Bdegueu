@@ -20,7 +20,7 @@ function Home() {
   },[])
 
   return (
-  <div>
+  <div className="homie">
     <h1 className="little-title">BDEgueu</h1>
     <p className="hom">A chaque BDE son BDEgueu ! Ici tu trouveras des infos sur les activités bédéhiques de ton école mais aussi :<br/>
       - Des goodies inédits <br/>

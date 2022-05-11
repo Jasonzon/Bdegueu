@@ -30,3 +30,7 @@
     margin-left:50%;
     transform:translateX(-50%);
 }
+
+.homie {
+    min-width:454px;
+}

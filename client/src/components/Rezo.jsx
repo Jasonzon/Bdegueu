@@ -149,7 +149,7 @@ function Rezo({user, setUser}) {
                 <div className="ad1">
                     <input maxLength="10" placeholder="Prix adhérent" value={inputs.adh} onChange={(e) => setInputs({name:inputs.name,date:inputs.date,adh:e.target.value,nonadh:inputs.nonadh,description:inputs.description,city:inputs.city})} />
                     <input maxLength="10" placeholder="Prix non-adhérent" value={inputs.nonadh} onChange={(e) => setInputs({name:inputs.name,date:inputs.date,adh:inputs.adh,nonadh:e.target.value,description:inputs.description,city:inputs.city})} />
-                    <input maxLength="5000" placeholder="Description" value={inputs.description} onChange={(e) => setInputs({name:inputs.name,date:inputs.date,adh:inputs.adh,nonadh:inputs.nonadh,description:e.target.value,city:inputs.city})} /><br/>
+                    <textarea maxLength="5000" placeholder="Description" value={inputs.description} onChange={(e) => setInputs({name:inputs.name,date:inputs.date,adh:inputs.adh,nonadh:inputs.nonadh,description:e.target.value,city:inputs.city})} /><br/>
                 </div>
                 <img onClick={() => submit()} title="valider" src={Tick} alt="tick" width="50" height="50" />
             </div>}
@@ -163,7 +163,7 @@ function Rezo({user, setUser}) {
                 <div className="ad1">
                     <input maxLength="10" placeholder="Prix adhérent" value={inputs2.adh} onChange={(e) => setInputs2({name:inputs.name,date:inputs2.date,adh:e.target.value,nonadh:inputs2.nonadh,description:inputs2.description,city:inputs2.city,id:inputs2.id,pic:inputs2.pic})} />
                     <input maxLength="10" placeholder="Prix non-adhérent" value={inputs2.nonadh} onChange={(e) => setInputs2({name:inputs2.name,date:inputs2.date,adh:inputs2.adh,nonadh:e.target.value,description:inputs2.description,city:inputs2.city,id:inputs2.id,pic:inputs2.pic})} />
-                    <input maxLength="5000" placeholder="Description" value={inputs2.description} onChange={(e) => setInputs2({name:inputs2.name,date:inputs2.date,adh:inputs2.adh,nonadh:inputs2.nonadh,description:e.target.value,city:inputs2.city,id:inputs2.id,pic:inputs2.pic})} /><br/>
+                    <textarea maxLength="5000" placeholder="Description" value={inputs2.description} onChange={(e) => setInputs2({name:inputs2.name,date:inputs2.date,adh:inputs2.adh,nonadh:inputs2.nonadh,description:e.target.value,city:inputs2.city,id:inputs2.id,pic:inputs2.pic})} /><br/>
                 </div>
                 <img onClick={() => submit2()} title="valider" src={Tick} alt="tick" width="50" height="50" />
             </div>}

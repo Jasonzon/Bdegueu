@@ -48,7 +48,7 @@ function User({user, setUser}) {
     }
 
     return (
-        <div>
+        <div className="uze">
             <div className="connection">
                 <h1>Mon compte</h1>
                 <button onClick={() => logout()}>Se déconnecter</button>

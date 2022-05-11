@@ -4,6 +4,7 @@
     border-radius: 1rem;
     display:inline-block;
     position:relative;
+    min-width: 314px;
 }
 
 .goodies .gooo {
@@ -111,4 +112,8 @@
 
 .ade > input[type="file"] {
     margin-top:.5rem;
+}
+
+.goodhies {
+    min-width: 350px;
 }

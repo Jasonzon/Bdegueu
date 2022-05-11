@@ -82,3 +82,7 @@ form > input:invalid {
         margin-left:.2rem;
     }
 }
+
+.conex {
+    min-width: 378px;
+}

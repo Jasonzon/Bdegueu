@@ -37,7 +37,7 @@ function Connection({connection, setConnection, user, setUser}) {
     }
 
     return (
-        <div>
+        <div className="conex">
             <div className="connection">
                 <h1>Connexion</h1>
                 <button onClick={() => setConnection(false)}>Pas enregistré ?</button>
