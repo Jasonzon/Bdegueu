@@ -78,6 +78,9 @@ router.post("/", async (req,res) => {
 router.post("/connect", async (req,res) => {
     try {
         const {mail, password} = req.body
+        console.log(process.env.NODE_ENV)
+        console.log("AUTH")
+        console.log("OUI",process.env.NODE_ENV)
         const newPolyuser = await pool.query("SELECT * FROM polyuser WHERE polyuser_mail = $1", [mail])
         console.log(newPolyuser)
         if (newPolyuser.rows.length !== 0) {
