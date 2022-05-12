@@ -20,7 +20,7 @@ function Connection({connection, setConnection, user, setUser}) {
             body:JSON.stringify(body)
         })
         const parseRes = await res.json()
-        if (parseRes.rows) {
+        if (parseRes.rows.length !== 0) {
             if (parseRes.token) {
                 localStorage.setItem("token",parseRes.token)
                 setUser(parseRes.rows[0])
