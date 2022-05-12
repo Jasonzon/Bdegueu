@@ -28,6 +28,9 @@ app.use("/likes_article", require("./routes/likes_article"))
 
 app.use("/likes_comment", require("./routes/likes_comment"))
 
+app.get("*", (req,res) => {
+    res.sendFile(path.join(__dirname,"client/build/index.html"))
+})
 
 app.listen(PORT, () => {
     console.log(`Server is starting on port ${PORT}`)

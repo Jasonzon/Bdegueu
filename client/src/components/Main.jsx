@@ -39,7 +39,6 @@ function Main() {
         <Router>
             <Nav />
             <Routes>
-                <Route path="*" element={<Error user={user} setUser={setUser} />} />
                 <Route exact path="/" element={<Home user={user} setUser={setUser}  />} />
                 <Route exact path="/rezo" element={<Rezo user={user} setUser={setUser}  />} />
                 <Route exact path="/goodies" element={<Goodies user={user} setUser={setUser} />} />
@@ -48,6 +47,7 @@ function Main() {
                 <Route exact path="/account" element ={<Compte user={user} setUser={setUser} connection={connection} setConnection={setConnection} />} />
                 <Route exact path="/articles/:id" element={<Article user={user} setUser={setUser} />} />
                 <Route exact path="/users/:id" element={<Users />} />
+                <Route path="*" element={<Error />} />
             </Routes>
         </Router>
     )
