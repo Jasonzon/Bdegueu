@@ -13,6 +13,7 @@ module.exports = async (req, res, next) => {
         }
         req.polyuser = payload.polyuser
         req.role = payload.role
+        req.mail = payload.mail
         next()
 
     } catch (err) {

@@ -82,7 +82,8 @@ function Comments({user, setUser, comment_id}) {
             </ul> 
             {set ? null : <img alt="loader" className="loader" src={Loader} />}
             {!set || comments.length !== 0 ? null : <h1 className="center">Aucun commentaire</h1>}
-            <div className={`numbers ${comments.length !== 0 && set && loaded === comments.length ? null : "none"}`}>
+            {set ?
+            <div className="numbers">
                 <div className="navigation">
                     <button onClick={() => setIndexPage(1)}>1</button>
                     {comments.length > indexPage*10 ? <button onClick={() => setIndexPage(indexPage+1)}>{">"}</button> : <button disabled>{">"}</button> }
@@ -90,7 +91,7 @@ function Comments({user, setUser, comment_id}) {
                     {indexPage === 1 ? <button disabled>{"<"}</button> : <button onClick={() => setIndexPage(indexPage-1)}>{"<"}</button> }
                     <button onClick={() => setIndexPage(((comments.length-comments.length%10)/10)+1)}>{comments.length < 11 ? 1 : ((comments.length-comments.length%10)/10)+1}</button>
                 </div>
-            </div>
+            </div> : null }
         </div>
     )
 }

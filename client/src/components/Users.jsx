@@ -8,7 +8,6 @@ function Users() {
     const [user, setUser] = useState({
         polyuser_id:"",
         polyuser_description:"",
-        polyuser_mail:"",
         polyuser_name:"",
         polyuser_role:""
     })

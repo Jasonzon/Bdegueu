@@ -27,7 +27,7 @@ function Main() {
                 method: "GET"
             })
             const parseRes2 = await res2.json()
-            setUser(parseRes2)
+            setUser({polyuser_id:parseRes2.polyuser_id,role:parseRes2.polyuser_role,mail:parseRes.polyuser_mail,description:parseRes2.polyuser_description,name:parseRes2.polyuser_name})
         }
     }
 
