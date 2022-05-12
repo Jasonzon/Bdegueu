@@ -80,6 +80,7 @@ function Articles({user, setUser}) {
                 </Link> : null } </>
             )} 
             </ul>
+            {articles.length > 1 ? null : <span className="center">Aucun article</span>}
             <div className="numbers">
                 <div className="navigation">
                     <button onClick={() => setIndexPage(1)}>1</button>

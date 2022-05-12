@@ -78,7 +78,8 @@ function Comments({user, setUser, comment_id}) {
                 )}
             </ul> 
             {comments.length !== 0 && loaded === comments.length ? null : <img alt="loader" className="loader" src={Loader} />}
-            <div className="numbers">
+            {comments.length !== 0 && comments.length === loaded ? null : <span className="center">Aucun commentaire</span>}
+            <div className={`numbers ${comments.length !== 0 && comments.length === loaded ? null : "none"}`}>
                 <div className="navigation">
                     <button onClick={() => setIndexPage(1)}>1</button>
                     {comments.length > indexPage*10 ? <button onClick={() => setIndexPage(indexPage+1)}>{">"}</button> : <button disabled>{">"}</button> }

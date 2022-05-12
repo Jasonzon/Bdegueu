@@ -68,3 +68,8 @@
 .coco {
     padding:0;
 }
+
+.center {
+    margin-left:50%;
+    transform: translateX(-50%);
+}
