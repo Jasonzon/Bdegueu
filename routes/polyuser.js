@@ -66,7 +66,7 @@ router.post("/", async (req,res) => {
         const salt = await bcrypt.genSalt(saltRound)
         const bcryptPassword = await bcrypt.hash(password, salt)
         const newPolyuser = await pool.query("INSERT INTO polyuser (polyuser_name, polyuser_mail, polyuser_password) VALUES ($1, $2, $3) RETURNING *", [name, mail, bcryptPassword])
-        const token = jwtGenerator(newPolyuser.rows[0].polyuser_id,newPolyuser.rows[0].polyuser_role,ewPolyuser.rows[0].polyuser_mail)
+        const token = jwtGenerator(newPolyuser.rows[0].polyuser_id,newPolyuser.rows[0].polyuser_role,newPolyuser.rows[0].polyuser_mail)
         res.json({rows:newPolyuser.rows,token})
     } catch (err) {
         console.error(err.message)
