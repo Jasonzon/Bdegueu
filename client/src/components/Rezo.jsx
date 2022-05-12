@@ -187,6 +187,7 @@ function Rezo({user, setUser}) {
                 )}
             </ul>
             {loaded ? null : <img src={Loader} alt="loader" className="loader" />}
+            {rezos.length === 0 ? null :
             <div className="numbers">
                 <div className="navigation">
                     <button onClick={() => setIndexPage(1)}>1</button>
@@ -195,7 +196,7 @@ function Rezo({user, setUser}) {
                     {indexPage === 1 ? <button disabled>{"<"}</button> : <button onClick={() => setIndexPage(indexPage-1)}>{"<"}</button> }
                     <button onClick={() => setIndexPage(((rezos.length-rezos.length%10)/10)+1)}>{rezos.length < 11 ? 1 : ((rezos.length-rezos.length%10)/10)+1}</button>
                 </div>
-            </div>
+            </div>}
         </div>
     )
 }

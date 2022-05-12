@@ -2,6 +2,7 @@ import "../styles/Articles.css"
 import {useState, useEffect} from "react"
 import {Link} from "react-router-dom"
 import Tick from "../assets/tick.png"
+import Loader from "../assets/gif.gif"
 
 function Articles({user, setUser}) {
 
@@ -80,7 +81,9 @@ function Articles({user, setUser}) {
                 </Link> : null } </>
             )} 
             </ul>
-            {articles.length > 1 ? null : <span className="center">Aucun article</span>}
+            {articles.length > 1 ? null : <img alt="loader" className="loader" src={Loader} />}
+            {articles.length > 1 ? null : <h1 className="center">Aucun article</h1>}
+            {articles.length > 1 ?
             <div className="numbers">
                 <div className="navigation">
                     <button onClick={() => setIndexPage(1)}>1</button>
@@ -89,7 +92,7 @@ function Articles({user, setUser}) {
                     {indexPage === 1 ? <button disabled>{"<"}</button> : <button onClick={() => setIndexPage(indexPage-1)}>{"<"}</button> }
                     <button onClick={() => setIndexPage(((articles.length-1-(articles.length-1)%10)/10)+1)}>{articles.length-1 < 11 ? 1 : ((articles.length-1-(articles.length-1)%10)/10)+1}</button>
                 </div>
-            </div>
+            </div> : null }
         </div>
     )
 }
