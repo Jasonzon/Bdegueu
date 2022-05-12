@@ -40,7 +40,7 @@ function Users() {
                 <h1>{user.polyuser_name} {"#"+("000"+user.polyuser_id).slice(-4)}</h1>
                 <h3>Rôle : {user.polyuser_role}</h3>
                 <p>{user.polyuser_description}</p>
-            </div> : <img alt="loader" className="loader" src={Loader} />}
+            </div> : <img alt="loader" className="loader loader2" src={Loader} />}
         </div>
     )
 }

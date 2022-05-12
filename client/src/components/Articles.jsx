@@ -8,12 +8,15 @@ function Articles({user, setUser}) {
 
     const [articles, setArticles] = useState([])
 
+    const [set, setSet] = useState(false)
+
     async function getArticles() {
         const res = await fetch("/article", {
             method: "GET"
         })
         const parseRes = await res.json()
         setArticles(parseRes)
+        setSet(true)
     }
 
     useEffect(() => {
@@ -81,8 +84,8 @@ function Articles({user, setUser}) {
                 </Link> : null } </>
             )} 
             </ul>
-            {articles.length > 1 ? null : <img alt="loader" className="loader" src={Loader} />}
-            {articles.length > 1 ? null : <h1 className="center">Aucun article</h1>}
+            {set ? null : <img alt="loader" className="loader" src={Loader} />}
+            {articles.length <= 1 && set ? <h1 className="center">Aucun article</h1> : null}
             {articles.length > 1 ?
             <div className="numbers">
                 <div className="navigation">

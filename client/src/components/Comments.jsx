@@ -17,6 +17,7 @@ function Comments({user, setUser, comment_id}) {
         })
         const parseRes = await res.json()
         setComments(parseRes)
+        setSet(true)
         comments.slice("").map(({goodies_id},index) => index === 0 ? setOnDel(goodies_id) : null)
     }
 
@@ -45,6 +46,8 @@ function Comments({user, setUser, comment_id}) {
     }
 
     const [loaded, setLoaded] = useState(0)
+
+    const [set, setSet] = useState(false)
 
     return (
         <div>
@@ -77,9 +80,9 @@ function Comments({user, setUser, comment_id}) {
                     </li> : null } </>
                 )}
             </ul> 
-            {comments.length !== 0 && loaded === comments.length ? null : <img alt="loader" className="loader" src={Loader} />}
-            {comments.length !== 0 ? null : <h1 className="center">Aucun commentaire</h1>}
-            <div className={`numbers ${comments.length !== 0 && comments.length === loaded ? null : "none"}`}>
+            {set ? null : <img alt="loader" className="loader" src={Loader} />}
+            {!set || comments.length !== 0 ? null : <h1 className="center">Aucun commentaire</h1>}
+            <div className={`numbers ${comments.length === 0 || !set ? null : "none"}`}>
                 <div className="navigation">
                     <button onClick={() => setIndexPage(1)}>1</button>
                     {comments.length > indexPage*10 ? <button onClick={() => setIndexPage(indexPage+1)}>{">"}</button> : <button disabled>{">"}</button> }

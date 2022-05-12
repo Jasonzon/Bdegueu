@@ -22,6 +22,7 @@ function Goodies({user, setUser}) {
         })
         const parseRes = await res.json()
         setGoodies(parseRes)
+        setSet(true)
     }
 
     useEffect(() => {
@@ -108,6 +109,8 @@ function Goodies({user, setUser}) {
         }
     }
 
+    const [set, setSet] = useState(false)
+
     return (
         <div className="goodhies">
             <div className="connection">
@@ -140,7 +143,8 @@ function Goodies({user, setUser}) {
                     </div>
                 )}
             </ul>
-            {goodies.length !== 0 ? null : <img alt="loader" className="loader" src={Loader} />}
+            {set ? null : <img alt="loader" className="loader" src={Loader} />}
+            {set && goodies.length === 0 ? <h1 className="center">Aucun goodies</h1> : null}
         </div>
     )
 }

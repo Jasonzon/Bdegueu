@@ -16,6 +16,7 @@ function Rezo({user, setUser}) {
         })
         const parseRes = await res.json()
         setRezos(parseRes)
+        setSet(true)
     }
 
     useEffect(() => {
@@ -132,6 +133,8 @@ function Rezo({user, setUser}) {
         }
     },[rezos])
 
+    const [set, setSet] = useState(false)
+
     return (
         <div>
             <div className="connection">
@@ -186,7 +189,8 @@ function Rezo({user, setUser}) {
                     </div>
                 )}
             </ul>
-            {loaded ? null : <img src={Loader} alt="loader" className="loader" />}
+            {set ? null : <img src={Loader} alt="loader" className="loader" />}
+            {set && rezos.length === 0 ? <h1 className="center">Aucun event</h1> : null}
             {rezos.length === 0 ? null :
             <div className="numbers">
                 <div className="navigation">

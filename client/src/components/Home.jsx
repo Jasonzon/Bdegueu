@@ -40,6 +40,7 @@ function Home() {
           </li></Link> } </>
       )}
       </ul>
+      {articles.slice("").filter((article,index) => index !== 0).length === 0 ? <h1 className='center'>Aucun article</h1> : null}
     </div>
   </div>
   )
