@@ -46,7 +46,7 @@ function Comment({comment_polyuser, comment_description, created_at, user, setUs
             method: "GET"
         })
         const parseRes = await res.json()
-        for (li in parseRes) {
+        for (var li in parseRes) {
             if (li.likes_liked) {
                 setNbLikes(nbLikes+1)
             }
