@@ -74,8 +74,7 @@ router.delete("/id/:id", auth, async (req,res) => {
     try {
         const {id} = req.params
         const user = req.polyuser
-        const {polyuser} = req.body
-        if (user && user.toString() === polyuser.toString()) {
+        if (user) {
             const deleteLikes = await pool.query("DELETE FROM likes_article WHERE likes_id = $1 and likes_polyuser = $2",[id, user])
         }
         else {

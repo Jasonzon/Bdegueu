@@ -39,9 +39,9 @@ function Comments({user, setUser, comment_id}) {
                 body:JSON.stringify(body)
             })
             const parseRes = await res.json()
-            setComments([...comments,parseRes])
             setInput("")
             setAdd(false)
+            setComments([...comments,parseRes])
         }
     }
 

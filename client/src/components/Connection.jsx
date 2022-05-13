@@ -35,7 +35,7 @@ function Connection({connection, setConnection, user, setUser}) {
             setHolder1("Mail non trouvé")
         }
     }
-
+    
     return (
         <div className="conex">
             <div className="connection">

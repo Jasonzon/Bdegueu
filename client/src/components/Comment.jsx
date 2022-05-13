@@ -13,22 +13,6 @@ function Comment({comment_polyuser, comment_description, created_at, user, setUs
     const [name, setName] = useState("")
     const [newId, setNewId] = useState(0)
 
-    async function getLikes() {
-        const res = await fetch(`/likes_comment/id/${id}`, {
-            method: "GET"
-        })
-        const parseRes = await res.json()
-        parseRes.filter((like) => user && like.likes_polyuser === user.polyuser_id)
-        if (parseRes.length !== 0) {
-            if (parseRes[0].likes_liked) {
-                setLiked(1)
-            }
-            else {
-                setLiked(-1)
-            }
-        }
-    }
-
     async function getUser() {
         const res = await fetch(`/polyuser/id/${comment_polyuser}`, {
             method: "GET"
@@ -62,7 +46,14 @@ function Comment({comment_polyuser, comment_description, created_at, user, setUs
             method: "GET"
         })
         const parseRes = await res.json()
-        parseRes.map(({likes_liked}) => likes_liked ? setNbLikes(nbLikes+1) : setNbDislikes(nbDislikes+1))
+        for (i in parseRes) {
+            if (i.likes_liked) {
+                setNbLikes(nbLikes+1)
+            }
+            else {
+                setNbDislikes(nbDislikes+1)
+            }
+        }
         const slice = parseRes.slice("").filter(({likes_polyuser}) => user && user.polyuser_id === likes_polyuser)
         if (slice.length !== 0) {
             if (slice[0].likes_liked) {
@@ -130,7 +121,6 @@ function Comment({comment_polyuser, comment_description, created_at, user, setUs
         const res2 = await fetch(`/likes_comment/id/${slice[0].likes_id}`, {
             method: "DELETE",
             headers: {token: localStorage.token},
-            body:JSON.stringify(body)
         })
     }
 
