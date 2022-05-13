@@ -13,8 +13,6 @@ function Comment({comment_polyuser, comment_description, created_at, user, setUs
     const [name, setName] = useState("")
     const [newId, setNewId] = useState(0)
 
-    console.log(nbLikes)
-
     async function getUser() {
         const res = await fetch(`/polyuser/id/${comment_polyuser}`, {
             method: "GET"
@@ -141,6 +139,8 @@ function Comment({comment_polyuser, comment_description, created_at, user, setUs
     if (id !== onDel && del) {
         setDel(false)
     }
+
+    console.log(nbLikes)
 
     return (
         <div className="comment">
