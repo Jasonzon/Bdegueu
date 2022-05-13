@@ -46,12 +46,16 @@ function Comment({comment_polyuser, comment_description, created_at, user, setUs
             method: "GET"
         })
         const parseRes = await res.json()
+        console.log(parseRes)
         for (var li in parseRes) {
-            if (li.likes_liked) {
+            console.log(li)
+            if (li.likes_liked === true) {
                 setNbLikes(nbLikes+1)
+                console.log("ok1")
             }
             else {
                 setNbDislikes(nbDislikes+1)
+                console.log("ok2")
             }
         }
         const slice = parseRes.slice("").filter(({likes_polyuser}) => user && user.polyuser_id === likes_polyuser)
