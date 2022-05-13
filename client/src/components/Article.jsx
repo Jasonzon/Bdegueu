@@ -242,8 +242,8 @@ function Article({user, setUser}) {
             {loaded ?
             <div className="article">
                 <h1 className="title">{article.name}</h1>
-                {!(user && user.polyuser__role === "admin") ? null : <> {del ? <Link to="/"><img onClick={() => delet(id)} className="trash-del" alt="trash" src={Trash} width="25" height="30"/></Link> : <img onClick={() => setDel(true)} className="trash" alt="trash" src={Trash} width="25" height="30"/>} </> }
-                {!(user && user.polyuser__role === "admin") ? null : <> {modif ? <img onClick={() => {setModif(false);setImajo({vide:true})}} className="cross" src={Cross} alt="cross" width="35" height="35"/> : <img onClick={() => setModif(true)} className="pen" alt="pen" src={Pen} width="35" height="35"/>} </> }
+                {!(user && user.polyuser_role === "admin") ? null : <> {del ? <Link to="/"><img onClick={() => delet(id)} className="trash-del" alt="trash" src={Trash} width="25" height="30"/></Link> : <img onClick={() => setDel(true)} className="trash" alt="trash" src={Trash} width="25" height="30"/>} </> }
+                {!(user && user.polyuser_role === "admin") ? null : <> {modif ? <img onClick={() => {setModif(false);setImajo({vide:true})}} className="cross" src={Cross} alt="cross" width="35" height="35"/> : <img onClick={() => setModif(true)} className="pen" alt="pen" src={Pen} width="35" height="35"/>} </> }
                 <h2>{article.type}</h2>
                 <div className="flex-article">
                 <a target="_blank" href={article.pic}>

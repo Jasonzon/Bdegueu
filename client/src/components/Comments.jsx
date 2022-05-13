@@ -49,6 +49,10 @@ function Comments({user, setUser, comment_id}) {
 
     const [set, setSet] = useState(false)
 
+    useEffect(() => {
+        setIndexPage(1)
+    },[comments])
+
     return (
         <div>
             <div className="connection">
@@ -59,7 +63,7 @@ function Comments({user, setUser, comment_id}) {
                 <input placeholder="Ajoutez un commentaire" value={input} onChange={(e) => setInput(e.target.value)} maxLength="500" />
                 <img onClick={() => publier()} title="valider" src={Tick} alt="tick" width="50" height="50" />
             </div>}
-            <ul className={`coco ${comments.length !== 0 && comments.length === loaded ? null : "none"}`}>
+            <ul className={`coco ${comments.length !== 0 ? null : "none"}`}>
                 {comments.slice("").reverse().map(({comment_id, comment_description, comment_polyuser, created_at, comment_likes, comment_dislikes},index) => <>
                     {(index < indexPage*10 && index >= (indexPage-1)*10) ?
                     <li key={created_at}>

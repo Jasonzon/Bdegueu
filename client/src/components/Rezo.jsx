@@ -139,7 +139,7 @@ function Rezo({user, setUser}) {
         <div>
             <div className="connection">
                 <h1 className="title">Rezo</h1>
-                {!(user && user.polyuser__role === "admin") ? null : <> {add ? <button onClick={() => setAdd(false)}>Annuler</button> : <button onClick={() => setAdd(true)}>Ajouter</button>} </> }
+                {!(user && user.polyuser_role === "admin") ? null : <> {add ? <button onClick={() => setAdd(false)}>Annuler</button> : <button onClick={() => setAdd(true)}>Ajouter</button>} </> }
             </div>
             <h2 className="goodi2">Retrouve ici les évènements rezo du moment</h2>
             {!add ? null : <div className="ad">
@@ -173,8 +173,8 @@ function Rezo({user, setUser}) {
             <ul className={`coco ${loaded ? null : "none"}`}>
                 {rezos.slice("").reverse().map(({rezo_pic, rezo_name, rezo_city, rezo_date, rezo_adh, rezo_nonadh, rezo_description, created_at, rezo_id},index) => 
                     <div className="rezo">
-                        {!(user && user.polyuser__role === "admin") ? null : <> {del[index] ? <img onClick={() => delet(rezo_id)} className="trash-del" alt="trash" src={Trash} width="25" height="30"/> : <img onClick={() => setDel(rezos.map((tra,ind) => ind === index ? true : false))} className="trash" alt="trash" src={Trash} width="25" height="30"/>} </> }
-                        {!(user && user.polyuser__role === "admin") ? null : <> {modif[index] ? <img onClick={() => {setModif(rezos.map((rez) => false));setInputs2({name:"", date:"", pic:"", id:0, adh:"", nonadh:"", description:"", city:""});setImajo2({vide:true})}} className="cross" src={Cross} alt="cross" width="35" height="35"/> : <img onClick={() => {setModif(rezos.map((goodie,ind) => index === ind ? true : false));setAdd(false);setInputs2({name:rezo_name, adh:rezo_adh, nonadh:rezo_nonadh, pic:rezo_pic, id:rezo_id, description:rezo_description, date:rezo_date, city:rezo_city})}} className="pen" alt="pen" src={Pen} width="35" height="35"/>} </> }
+                        {!(user && user.polyuser_role === "admin") ? null : <> {del[index] ? <img onClick={() => delet(rezo_id)} className="trash-del" alt="trash" src={Trash} width="25" height="30"/> : <img onClick={() => setDel(rezos.map((tra,ind) => ind === index ? true : false))} className="trash" alt="trash" src={Trash} width="25" height="30"/>} </> }
+                        {!(user && user.polyuser_role === "admin") ? null : <> {modif[index] ? <img onClick={() => {setModif(rezos.map((rez) => false));setInputs2({name:"", date:"", pic:"", id:0, adh:"", nonadh:"", description:"", city:""});setImajo2({vide:true})}} className="cross" src={Cross} alt="cross" width="35" height="35"/> : <img onClick={() => {setModif(rezos.map((goodie,ind) => index === ind ? true : false));setAdd(false);setInputs2({name:rezo_name, adh:rezo_adh, nonadh:rezo_nonadh, pic:rezo_pic, id:rezo_id, description:rezo_description, date:rezo_date, city:rezo_city})}} className="pen" alt="pen" src={Pen} width="35" height="35"/>} </> }
                         <h1 className="title">{rezo_name}</h1>
                         <h2 className="flex-rezo">{rezo_city}</h2>
                         <h2>{rezo_date}</h2>
