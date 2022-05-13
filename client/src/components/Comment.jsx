@@ -48,8 +48,8 @@ function Comment({comment_polyuser, comment_description, created_at, user, setUs
         const parseRes = await res.json()
         console.log(parseRes)
         for (var li in parseRes) {
-            console.log(li)
-            if (li.likes_liked === true) {
+            console.log(parseRes[li])
+            if (parseRes[li].likes_liked === true) {
                 setNbLikes(nbLikes+1)
                 console.log("ok1")
             }
