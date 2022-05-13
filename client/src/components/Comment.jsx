@@ -50,6 +50,7 @@ function Comment({comment_polyuser, comment_description, created_at, user, setUs
             console.log(parseRes[li])
             if (parseRes[li].likes_liked === true) {
                 setNbLikes(nbLikes+1)
+                console.log("ok",nbLikes)
             }
             else {
                 setNbDislikes(nbDislikes+1)
