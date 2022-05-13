@@ -27,7 +27,12 @@ router.get("/id/:id", async (req,res) => {
     try {
         const {id} = req.params
         const polyuser = await pool.query("SELECT polyuser_name, polyuser_role, polyuser_description, polyuser_id FROM polyuser WHERE polyuser_id = $1",[id])
-        res.json(polyuser.rows[0])
+        if (polyuser.rows.length === 0) {
+            return res.status(403).send("Not Authorized")
+        }
+        else {
+            res.json(polyuser.rows[0])
+        }
     } catch (err) {
         console.error(err.message)
     }
@@ -49,7 +54,7 @@ router.get("/mail/:id", async (req,res) => {
 
 router.get("/auth", async (req,res) => {
     try {
-        const jwtToken = await req.header("token")
+        const jwtToken = req.header("token")
         const payload = jwt.verify(jwtToken, process.env.jwtSecret)
         res.json({polyuser_id:payload.polyuser,polyuser_mail:payload.mail})
     } catch (err) {
@@ -66,8 +71,13 @@ router.post("/", async (req,res) => {
         const salt = await bcrypt.genSalt(saltRound)
         const bcryptPassword = await bcrypt.hash(password, salt)
         const newPolyuser = await pool.query("INSERT INTO polyuser (polyuser_name, polyuser_mail, polyuser_password) VALUES ($1, $2, $3) RETURNING *", [name, mail, bcryptPassword])
-        const token = jwtGenerator(newPolyuser.rows[0].polyuser_id,newPolyuser.rows[0].polyuser_role,newPolyuser.rows[0].polyuser_mail)
-        res.json({rows:newPolyuser.rows,token})
+        if (newPolyuser.rows.length === 0) {
+            return res.status(403).send("Not Authorized")
+        }
+        else {
+            const token = jwtGenerator(newPolyuser.rows[0].polyuser_id,newPolyuser.rows[0].polyuser_role,newPolyuser.rows[0].polyuser_mail)
+            res.json({rows:newPolyuser.rows,token})
+        }
     } catch (err) {
         console.error(err.message)
     }
@@ -106,7 +116,12 @@ router.put("/id/:id", auth, async (req,res) => {
         const user = req.polyuser
         if (user && user.toString() === id.toString()) {
             const updatePolyuser = await pool.query("UPDATE polyuser SET polyuser_name = $2, polyuser_description = $3 WHERE polyuser_id = $1 RETURNING *",[id, name, description])
-            res.json(updatePolyuser.rows[0])
+            if (updatePolyuser.rows.length === 0) {
+                return res.status(403).send("Not Authorized")
+            }
+            else {
+                return res.status(200).send("OK")
+            }
         }
         else {
             return res.status(403).send("Not Authorized")

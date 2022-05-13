@@ -149,7 +149,7 @@ function Comment({comment_polyuser, comment_description, created_at, user, setUs
 
     return (
         <div className="comment">
-            {!(user && user.polyuser_role === "admin") ? null : <> {del ? <img onClick={() => delet(id)} className="trash-del" alt="trash" src={Trash} width="25" height="30"/> : <img onClick={() => {setDel(true);setOnDel(id)}} className="trash" alt="trash" src={Trash} width="25" height="30"/>} </> }
+            {!(user && (user.polyuser_id === comment_polyuser || user.polyuser_role === "admin")) ? null : <> {del ? <img onClick={() => delet(id)} className="trash-del" alt="trash" src={Trash} width="25" height="30"/> : <img onClick={() => {setDel(true);setOnDel(id)}} className="trash" alt="trash" src={Trash} width="25" height="30"/>} </> }
             <Link to={"/users/" + comment_polyuser}><span className="nam">{name} {"#"+("000"+newId).slice(-4)}</span></Link>
             <p>{comment_description}</p>
             {user && user.polyuser_name ?

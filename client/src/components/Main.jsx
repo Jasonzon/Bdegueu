@@ -9,6 +9,7 @@ import Comments from "./Comments"
 import Compte from "./Compte"
 import Article from "./Article"
 import Users from "./Users"
+import Footer from "./Footer"
 import { useState, useEffect } from "react";
 
 function Main() {
@@ -49,6 +50,7 @@ function Main() {
                 <Route exact path="/users/:id" element={<Users />} />
                 <Route path="*" element={<Error />} />
             </Routes>
+            <Footer />
         </Router>
     )
 }
