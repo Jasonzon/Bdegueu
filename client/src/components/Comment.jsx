@@ -46,15 +46,21 @@ function Comment({comment_polyuser, comment_description, created_at, user, setUs
             method: "GET"
         })
         const parseRes = await res.json()
+        var nbL = 0
+        var nbD = 0
         for (var li in parseRes) {
-            console.log(parseRes[li])
             if (parseRes[li].likes_liked === true) {
-                setNbLikes(nbLikes+1)
-                console.log("ok",nbLikes)
+                nbL++
             }
             else {
-                setNbDislikes(nbDislikes+1)
+                nbD++
             }
+        }
+        if (nbL !== 0) {
+            setNbLikes(nbL)
+        }
+        if (nbD !== 0) {
+            setNbDislikes(nbD)
         }
         const slice = parseRes.slice("").filter(({likes_polyuser}) => user && user.polyuser_id === likes_polyuser)
         if (slice.length !== 0) {
@@ -141,11 +147,9 @@ function Comment({comment_polyuser, comment_description, created_at, user, setUs
         setDel(false)
     }
 
-    console.log(nbLikes)
-
     return (
         <div className="comment">
-            {!(user && user.polyuser_name) ? null : <> {del ? <img onClick={() => delet(id)} className="trash-del" alt="trash" src={Trash} width="25" height="30"/> : <img onClick={() => {setDel(true);setOnDel(id)}} className="trash" alt="trash" src={Trash} width="25" height="30"/>} </> }
+            {!(user && user.polyuser_role === "admin") ? null : <> {del ? <img onClick={() => delet(id)} className="trash-del" alt="trash" src={Trash} width="25" height="30"/> : <img onClick={() => {setDel(true);setOnDel(id)}} className="trash" alt="trash" src={Trash} width="25" height="30"/>} </> }
             <Link to={"/users/" + comment_polyuser}><span className="nam">{name} {"#"+("000"+newId).slice(-4)}</span></Link>
             <p>{comment_description}</p>
             {user && user.polyuser_name ?

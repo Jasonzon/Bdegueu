@@ -115,7 +115,7 @@ function Goodies({user, setUser}) {
         <div className="goodhies">
             <div className="connection">
                 <h1>Goodies</h1>
-                {!(user && user.polyuser_name) ? null : <> {add ? <button onClick={() => setAdd(false)}>Annuler</button> : <button onClick={() => {setAdd(true);setModif(goodies.map((goodie) => false));setInputs2({name:"", price:"", pic:""});setImajo2({vide:true})}}>Ajouter</button>} </> }
+                {!(user && user.polyuser__role === "admin") ? null : <> {add ? <button onClick={() => setAdd(false)}>Annuler</button> : <button onClick={() => {setAdd(true);setModif(goodies.map((goodie) => false));setInputs2({name:"", price:"", pic:""});setImajo2({vide:true})}}>Ajouter</button>} </> }
             </div>
             <h2 className="goodi">Les goodies seront disponibles à l'achat prochainement</h2>
             {!add ? null : <div className="ade">
@@ -133,8 +133,8 @@ function Goodies({user, setUser}) {
             <ul className={`good ${goodies.length !== 0 ? null : "none"}`}>
                 {goodies.map(({goodies_name, goodies_pic, goodies_price, goodies_id},index) =>
                     <div className="goodies">
-                        {!(user && user.polyuser_name) ? null : <> {del[index] ? <img onClick={() => delet(goodies_id)} className="trash-del" alt="trash" src={Trash} width="25" height="30"/> : <img onClick={() => setDel(goodies.map((tra,ind) => ind === index ? true : false))} className="trash" alt="trash" src={Trash} width="25" height="30"/>} </> }
-                        {!(user && user.polyuser_name) ? null : <> {modif[index] ? <img onClick={() => {setModif(goodies.map((goodie) => false));setInputs2({name:"", price:"", pic:"", id:0});setImajo2({vide:true})}} className="cross" src={Cross} alt="cross" width="35" height="35"/> : <img onClick={() => {setModif(goodies.map((goodie,ind) => index === ind ? true : false));setAdd(false);setInputs2({name:goodies_name, price:goodies_price, pic:goodies_pic, id:goodies_id})}} className="pen" alt="pen" src={Pen} width="35" height="35"/>} </> }
+                        {!(user && user.polyuser__role === "admin") ? null : <> {del[index] ? <img onClick={() => delet(goodies_id)} className="trash-del" alt="trash" src={Trash} width="25" height="30"/> : <img onClick={() => setDel(goodies.map((tra,ind) => ind === index ? true : false))} className="trash" alt="trash" src={Trash} width="25" height="30"/>} </> }
+                        {!(user && user.polyuser__role === "admin") ? null : <> {modif[index] ? <img onClick={() => {setModif(goodies.map((goodie) => false));setInputs2({name:"", price:"", pic:"", id:0});setImajo2({vide:true})}} className="cross" src={Cross} alt="cross" width="35" height="35"/> : <img onClick={() => {setModif(goodies.map((goodie,ind) => index === ind ? true : false));setAdd(false);setInputs2({name:goodies_name, price:goodies_price, pic:goodies_pic, id:goodies_id})}} className="pen" alt="pen" src={Pen} width="35" height="35"/>} </> }
                         <h1>{goodies_name}</h1>
                         <a target="_blank" href={goodies_pic}>
                         <img className="gooo" src={goodies_pic} alt="goodies_pic" />

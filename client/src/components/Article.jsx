@@ -59,7 +59,22 @@ function Article({user, setUser}) {
             method: "GET"
         })
         const parseRes = await res.json()
-        parseRes.map(({likes_liked}) => likes_liked ? setNbLikes(nbLikes+1) : setNbDislikes(nbDislikes+1))
+        var nbL = 0
+        var nbD = 0
+        for (var li in parseRes) {
+            if (parseRes[li].likes_liked === true) {
+                nbL++
+            }
+            else {
+                nbD++
+            }
+        }
+        if (nbL !== 0) {
+            setNbLikes(nbL)
+        }
+        if (nbD !== 0) {
+            setNbDislikes(nbD)
+        }
         const slice = parseRes.slice("").filter(({likes_polyuser}) => user && user.polyuser_id === likes_polyuser)
         if (slice.length !== 0) {
             if (slice[0].likes_liked) {
@@ -227,8 +242,8 @@ function Article({user, setUser}) {
             {loaded ?
             <div className="article">
                 <h1 className="title">{article.name}</h1>
-                {!(user && user.polyuser_name) ? null : <> {del ? <Link to="/"><img onClick={() => delet(id)} className="trash-del" alt="trash" src={Trash} width="25" height="30"/></Link> : <img onClick={() => setDel(true)} className="trash" alt="trash" src={Trash} width="25" height="30"/>} </> }
-                {!(user && user.polyuser_name) ? null : <> {modif ? <img onClick={() => {setModif(false);setImajo({vide:true})}} className="cross" src={Cross} alt="cross" width="35" height="35"/> : <img onClick={() => setModif(true)} className="pen" alt="pen" src={Pen} width="35" height="35"/>} </> }
+                {!(user && user.polyuser__role === "admin") ? null : <> {del ? <Link to="/"><img onClick={() => delet(id)} className="trash-del" alt="trash" src={Trash} width="25" height="30"/></Link> : <img onClick={() => setDel(true)} className="trash" alt="trash" src={Trash} width="25" height="30"/>} </> }
+                {!(user && user.polyuser__role === "admin") ? null : <> {modif ? <img onClick={() => {setModif(false);setImajo({vide:true})}} className="cross" src={Cross} alt="cross" width="35" height="35"/> : <img onClick={() => setModif(true)} className="pen" alt="pen" src={Pen} width="35" height="35"/>} </> }
                 <h2>{article.type}</h2>
                 <div className="flex-article">
                 <a target="_blank" href={article.pic}>

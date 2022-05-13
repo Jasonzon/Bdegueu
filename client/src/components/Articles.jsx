@@ -63,7 +63,7 @@ function Articles({user, setUser}) {
         <div>
             <div className="connection">
                 <h1 className="title">Articles</h1>
-                {!(user && user.polyuser_name) ? null : <> {add ? <button onClick={() => setAdd(false)}>Annuler</button> : <button onClick={() => setAdd(true)}>Ajouter</button>} </> }
+                {!(user && user.polyuser_role === "admin") ? null : <> {add ? <button onClick={() => setAdd(false)}>Annuler</button> : <button onClick={() => setAdd(true)}>Ajouter</button>} </> }
             </div>
             {!add ? null : <div className="ade">
                 <input maxLength="50" placeholder="Nom" value={inputs.name} onChange={(e) => setInputs({name:e.target.value,type:inputs.type,description:inputs.description})} />
