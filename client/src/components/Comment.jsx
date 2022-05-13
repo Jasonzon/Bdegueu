@@ -13,6 +13,8 @@ function Comment({comment_polyuser, comment_description, created_at, user, setUs
     const [name, setName] = useState("")
     const [newId, setNewId] = useState(0)
 
+    console.log(nbLikes)
+
     async function getUser() {
         const res = await fetch(`/polyuser/id/${comment_polyuser}`, {
             method: "GET"
@@ -46,16 +48,13 @@ function Comment({comment_polyuser, comment_description, created_at, user, setUs
             method: "GET"
         })
         const parseRes = await res.json()
-        console.log(parseRes)
         for (var li in parseRes) {
             console.log(parseRes[li])
             if (parseRes[li].likes_liked === true) {
                 setNbLikes(nbLikes+1)
-                console.log("ok1")
             }
             else {
                 setNbDislikes(nbDislikes+1)
-                console.log("ok2")
             }
         }
         const slice = parseRes.slice("").filter(({likes_polyuser}) => user && user.polyuser_id === likes_polyuser)
