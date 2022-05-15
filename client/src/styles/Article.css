@@ -140,12 +140,11 @@
     }
 
     .descc {
-        width: 100%;
         font-size: 1.2rem;
     }
 }
 
 .descc {
-    width:35%;
+    width:100%;
     white-space: pre-wrap;
 }

@@ -46,6 +46,7 @@ function Main() {
                 <Route exact path="/articles" element={<Articles user={user} setUser={setUser} />} />
                 <Route exact path="/comments" element={<Comments user={user} setUser={setUser} comment_id={1} />} />
                 <Route exact path="/account" element ={<Compte user={user} setUser={setUser} connection={connection} setConnection={setConnection} />} />
+                <Route exact path="/articles/1" element={<Error />} />
                 <Route exact path="/articles/:id" element={<Article user={user} setUser={setUser} />} />
                 <Route exact path="/users/:id" element={<Users />} />
                 <Route path="*" element={<Error />} />
