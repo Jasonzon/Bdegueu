@@ -42,7 +42,7 @@ function Main() {
             <Routes>
                 <Route exact path="/" element={<Home user={user} setUser={setUser}  />} />
                 <Route exact path="/rezo" element={<Rezo user={user} setUser={setUser}  />} />
-                <Route exact path="/goodies" element={<Goodies user={user} setUser={setUser} />} />
+                <Route exact path="/goodiz" element={<Goodies user={user} setUser={setUser} />} />
                 <Route exact path="/articles" element={<Articles user={user} setUser={setUser} />} />
                 <Route exact path="/comments" element={<Comments user={user} setUser={setUser} comment_id={1} />} />
                 <Route exact path="/account" element ={<Compte user={user} setUser={setUser} connection={connection} setConnection={setConnection} />} />

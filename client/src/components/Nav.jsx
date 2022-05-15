@@ -12,7 +12,7 @@ function Nav() {
                     <li><Link className="link" to="/">Accueil</Link></li>
                     <li><Link className="link" to="/rezo">Rezo</Link></li>
                     <li><Link className="link" to="/articles">Articles</Link></li>
-                    <li><Link className="link" to="/goodies">Goodies</Link></li>
+                    <li><Link className="link" to="/goodiz">Goodies</Link></li>
                     <li><Link className="link" to="/comments">Commentaires</Link></li>
                     <li><Link className="link" to="/account">Compte</Link></li>
                 </ul>
