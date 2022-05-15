@@ -10,7 +10,7 @@ function Nav() {
                 <img src={Logo} width="55" height="55" alt="bdegueu"/>
                 <ul className="navbar">
                     <li><Link className="link" to="/">Accueil</Link></li>
-                    <li><Link className="link" to="/rezo">Rezo</Link></li>
+                    <li><Link className="link" to="/rezoo">Rezo</Link></li>
                     <li><Link className="link" to="/articles">Articles</Link></li>
                     <li><Link className="link" to="/goodiz">Goodies</Link></li>
                     <li><Link className="link" to="/comments">Commentaires</Link></li>

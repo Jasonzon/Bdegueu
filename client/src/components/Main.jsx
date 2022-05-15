@@ -41,7 +41,7 @@ function Main() {
             <Nav />
             <Routes>
                 <Route exact path="/" element={<Home user={user} setUser={setUser}  />} />
-                <Route exact path="/rezo" element={<Rezo user={user} setUser={setUser}  />} />
+                <Route exact path="/rezoo" element={<Rezo user={user} setUser={setUser}  />} />
                 <Route exact path="/goodiz" element={<Goodies user={user} setUser={setUser} />} />
                 <Route exact path="/articles" element={<Articles user={user} setUser={setUser} />} />
                 <Route exact path="/comments" element={<Comments user={user} setUser={setUser} comment_id={1} />} />
