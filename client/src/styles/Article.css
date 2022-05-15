@@ -37,7 +37,7 @@
 }
 
 .article p {
-    font-size:1.65rem;
+    font-size:1.2rem;
     margin:.5rem;
     margin-bottom:2rem;
 }
@@ -136,11 +136,17 @@
     }
     .article a,
     .rezo a {
-    width:80%;
-    height:80%;
-}
+        width:80%;
+        height:80%;
+    }
+
+    .descc {
+        width: 100%;
+        font-size: 1rem;
+    }
 }
 
 .descc {
     width:35%;
+    white-space: pre-wrap;
 }

@@ -12,10 +12,18 @@ import {Link} from "react-router-dom"
 import Tick from "../assets/tick.png"
 import Cross from "../assets/cross.png"
 import Loader from "../assets/gif.gif"
+import {useNavigate} from "react-router-dom";
 
 function Article({user, setUser}) {
 
+    const navigate = useNavigate();
+
     const {id} = useParams()
+
+    if (id === 1) {
+        navigate("/")
+    }
+
     const [article, setArticle] = useState({
         name:"",
         type:"",
