@@ -1,10 +1,25 @@
 const router = require("express").Router()
 const pool = require("../db")
 const auth = require("../utils/auth")
+const rateLimit = require('express-rate-limit')
+
+const Limiter = rateLimit({
+	windowMs: 1000,
+	max: 5,
+	standardHeaders: true, 
+	legacyHeaders: false, 
+})
+
+const userLimiter = rateLimit({
+	windowMs: 60 * 1000,
+	max: 10,
+	standardHeaders: true, 
+	legacyHeaders: false, 
+})
 
 //get by comment
 
-router.get("/comment/:id", async (req,res) => {
+router.get("/comment/:id", Limiter, async (req,res) => {
     try {
         const {id} = req.params
         const allLikes = await pool.query("SELECT * FROM likes_comment WHERE likes_comment = $1",[id])
@@ -16,7 +31,7 @@ router.get("/comment/:id", async (req,res) => {
 
 //get by id
 
-router.get("/id/:id", async (req,res) => {
+router.get("/id/:id", Limiter, async (req,res) => {
     try {
         const {id} = req.params
         const like = await pool.query("SELECT * FROM likes_comment WHERE likes_id = $1",[id])
@@ -33,7 +48,7 @@ router.get("/id/:id", async (req,res) => {
 
 //create
 
-router.post("/", auth, async (req,res) => {
+router.post("/", userLimiter, auth, async (req,res) => {
     try {
         const {liked, polyuser, comment} = req.body
         const user = req.polyuser
@@ -63,7 +78,7 @@ router.post("/", auth, async (req,res) => {
 
 //update
 
-router.put("/id/:id", auth, async (req,res) => {
+router.put("/id/:id", userLimiter, auth, async (req,res) => {
     try {
         const {id} = req.params
         const {liked, polyuser, comment} = req.body
@@ -87,7 +102,7 @@ router.put("/id/:id", auth, async (req,res) => {
 
 //delete
 
-router.delete("/id/:id", auth, async (req,res) => {
+router.delete("/id/:id", userLimiter, auth, async (req,res) => {
     try {
         const {id} = req.params
         const user = req.polyuser

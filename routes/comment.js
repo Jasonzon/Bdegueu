@@ -1,10 +1,25 @@
 const router = require("express").Router()
 const pool = require("../db")
 const auth = require("../utils/auth")
+const rateLimit = require('express-rate-limit')
+
+const Limiter = rateLimit({
+	windowMs: 1000,
+	max: 5,
+	standardHeaders: true, 
+	legacyHeaders: false, 
+})
+
+const userLimiter = rateLimit({
+	windowMs: 60 * 1000,
+	max: 10,
+	standardHeaders: true, 
+	legacyHeaders: false, 
+})
 
 //get all 
 
-router.get("/", async (req,res) => {
+router.get("/", Limiter, async (req,res) => {
     try {
         const allComments = await pool.query("SELECT * FROM comment")
         res.json(allComments.rows)
@@ -15,7 +30,7 @@ router.get("/", async (req,res) => {
 
 //get by id
 
-router.get("/id/:id", async (req,res) => {
+router.get("/id/:id", Limiter, async (req,res) => {
     try {
         const {id} = req.params
         const comment = await pool.query("SELECT * FROM comment WHERE comment_id = $1",[id])
@@ -32,7 +47,7 @@ router.get("/id/:id", async (req,res) => {
 
 //get by article
 
-router.get("/article/:id", async (req,res) => {
+router.get("/article/:id", Limiter, async (req,res) => {
     try {
         const {id} = req.params
         const comment = await pool.query("SELECT * FROM comment WHERE comment_article = $1",[id])
@@ -44,7 +59,7 @@ router.get("/article/:id", async (req,res) => {
 
 //create
 
-router.post("/", auth, async (req,res) => {
+router.post("/", userLimiter, auth, async (req,res) => {
     try {
         const {description,article} = req.body
         const user = req.polyuser
@@ -67,7 +82,7 @@ router.post("/", auth, async (req,res) => {
 
 //delete
 
-router.delete("/id/:id", auth, async (req,res) => {
+router.delete("/id/:id", userLimiter, auth, async (req,res) => {
     try {
         const {id} = req.params
         const user = req.polyuser

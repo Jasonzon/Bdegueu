@@ -4,10 +4,32 @@ const jwt = require("jsonwebtoken")
 const auth = require("../utils/auth")
 const bcrypt = require("bcrypt")
 const jwtGenerator = require("../utils/jwtGenerator")
+const rateLimit = require('express-rate-limit')
+
+const Limiter = rateLimit({
+	windowMs: 1000,
+	max: 5,
+	standardHeaders: true, 
+	legacyHeaders: false, 
+})
+
+const userLimiter = rateLimit({
+	windowMs: 60 * 1000,
+	max: 10,
+	standardHeaders: true, 
+	legacyHeaders: false, 
+})
+
+const createLimiter = rateLimit({
+    windowMs: 60 * 60 * 1000,
+    max: 5,
+    standardHeaders: true,
+    legacyHeaders: false,
+})
 
 //get all 
 
-router.get("/", auth, async (req,res) => {
+router.get("/", Limiter, auth, async (req,res) => {
     try {
         if (req.polyuser && req.role === "admin") {
             const allPolyusers = await pool.query("SELECT * FROM polyuser")
@@ -23,7 +45,7 @@ router.get("/", auth, async (req,res) => {
 
 //get by id
 
-router.get("/id/:id", async (req,res) => {
+router.get("/id/:id", Limiter, async (req,res) => {
     try {
         const {id} = req.params
         const polyuser = await pool.query("SELECT polyuser_name, polyuser_role, polyuser_description, polyuser_id FROM polyuser WHERE polyuser_id = $1",[id])
@@ -40,7 +62,7 @@ router.get("/id/:id", async (req,res) => {
 
 //get by mail
 
-router.get("/mail/:id", async (req,res) => {
+router.get("/mail/:id", Limiter, async (req,res) => {
     try {
         const {id} = req.params
         const polyuser = await pool.query("SELECT * FROM polyuser WHERE polyuser_mail = $1",[id])
@@ -52,7 +74,7 @@ router.get("/mail/:id", async (req,res) => {
 
 //auth
 
-router.get("/auth", async (req,res) => {
+router.get("/auth", Limiter, async (req,res) => {
     try {
         const jwtToken = req.header("token")
         const payload = jwt.verify(jwtToken, process.env.jwtSecret)
@@ -64,7 +86,7 @@ router.get("/auth", async (req,res) => {
 
 //create
 
-router.post("/", async (req,res) => {
+router.post("/", createLimiter, async (req,res) => {
     try {
         const {name, mail, password} = req.body
         const saltRound = 10
@@ -85,7 +107,7 @@ router.post("/", async (req,res) => {
 
 //connect
 
-router.post("/connect", async (req,res) => {
+router.post("/connect", Limiter, async (req,res) => {
     try {
         const {mail, password} = req.body
         const newPolyuser = await pool.query("SELECT * FROM polyuser WHERE polyuser_mail = $1", [mail])
@@ -109,7 +131,7 @@ router.post("/connect", async (req,res) => {
 
 //update
 
-router.put("/id/:id", auth, async (req,res) => {
+router.put("/id/:id", userLimiter, auth, async (req,res) => {
     try {
         const {id} = req.params
         const {name, description} = req.body

@@ -1,10 +1,18 @@
 const router = require("express").Router()
 const pool = require("../db")
 const auth = require("../utils/auth")
+const rateLimit = require('express-rate-limit')
+
+const Limiter = rateLimit({
+	windowMs: 1000,
+	max: 5,
+	standardHeaders: true, 
+	legacyHeaders: false, 
+})
 
 //get all 
 
-router.get("/", async (req,res) => {
+router.get("/", Limiter, async (req,res) => {
     try {
         const allArticles = await pool.query("SELECT * FROM article")
         res.json(allArticles.rows)
@@ -15,7 +23,7 @@ router.get("/", async (req,res) => {
 
 //get by id
 
-router.get("/id/:id", async (req,res) => {
+router.get("/id/:id", Limiter, async (req,res) => {
     try {
         const {id} = req.params
         const article = await pool.query("SELECT * FROM article WHERE article_id = $1",[id])
@@ -32,7 +40,7 @@ router.get("/id/:id", async (req,res) => {
 
 //get by name
 
-router.get("/name/:id", async (req,res) => {
+router.get("/name/:id", Limiter, async (req,res) => {
     try {
         const {id} = req.params
         const article = await pool.query("SELECT * FROM article WHERE article_name = $1",[id])
@@ -44,7 +52,7 @@ router.get("/name/:id", async (req,res) => {
 
 //create
 
-router.post("/", auth, async (req,res) => {
+router.post("/", Limiter, auth, async (req,res) => {
     try {
         const {name, type, pic, description} = req.body
         if (req.polyuser && req.role === "admin") {
@@ -67,7 +75,7 @@ router.post("/", auth, async (req,res) => {
 
 //update
 
-router.put("/id/:id", auth, async (req,res) => {
+router.put("/id/:id", Limiter, auth, async (req,res) => {
     try {
         const {id} = req.params
         const {name, type, pic, description} = req.body
@@ -90,7 +98,7 @@ router.put("/id/:id", auth, async (req,res) => {
 
 //delete
 
-router.delete("/id/:id", auth, async (req,res) => {
+router.delete("/id/:id", Limiter, auth, async (req,res) => {
     try {
         const {id} = req.params
         if (req.polyuser && req.role === "admin") {

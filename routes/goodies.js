@@ -1,10 +1,25 @@
 const router = require("express").Router()
 const pool = require("../db")
 const auth = require("../utils/auth")
+const rateLimit = require('express-rate-limit')
+
+const Limiter = rateLimit({
+	windowMs: 1000,
+	max: 5,
+	standardHeaders: true, 
+	legacyHeaders: false, 
+})
+
+const userLimiter = rateLimit({
+	windowMs: 60 * 1000,
+	max: 10,
+	standardHeaders: true, 
+	legacyHeaders: false, 
+})
 
 //get all 
 
-router.get("/", async (req,res) => {
+router.get("/", Limiter, async (req,res) => {
     try {
         const allGoodies = await pool.query("SELECT * FROM goodies")
         res.json(allGoodies.rows)
@@ -15,7 +30,7 @@ router.get("/", async (req,res) => {
 
 //get by id
 
-router.get("/id/:id", async (req,res) => {
+router.get("/id/:id", Limiter, async (req,res) => {
     try {
         const {id} = req.params
         const goodies = await pool.query("SELECT * FROM goodies WHERE goodies_id = $1",[id])
@@ -32,7 +47,7 @@ router.get("/id/:id", async (req,res) => {
 
 //get by name
 
-router.get("/name/:id", async (req,res) => {
+router.get("/name/:id", Limiter, async (req,res) => {
     try {
         const {id} = req.params
         const goodies = await pool.query("SELECT * FROM goodies WHERE goodies_name = $1",[id])
@@ -44,7 +59,7 @@ router.get("/name/:id", async (req,res) => {
 
 //create
 
-router.post("/", auth, async (req,res) => {
+router.post("/", userLimiter, auth, async (req,res) => {
     try {
         const {name, price, pic} = req.body
         if (req.polyuser && req.role === "admin") {
@@ -66,7 +81,7 @@ router.post("/", auth, async (req,res) => {
 
 //update
 
-router.put("/id/:id", auth, async (req,res) => {
+router.put("/id/:id", userLimiter, auth, async (req,res) => {
     try {
         const {id} = req.params
         const {name, price, pic} = req.body
@@ -89,7 +104,7 @@ router.put("/id/:id", auth, async (req,res) => {
 
 //delete
 
-router.delete("/id/:id", auth, async (req,res) => {
+router.delete("/id/:id", userLimiter, auth, async (req,res) => {
     try {
         const {id} = req.params
         if (req.polyuser && req.role === "admin") {
