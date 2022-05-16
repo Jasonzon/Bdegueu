@@ -142,7 +142,7 @@ router.put("/id/:id", userLimiter, auth, async (req,res) => {
                 return res.status(403).send("Not Authorized")
             }
             else {
-                return res.status(200).send("OK")
+                res.send(updatePolyuser.rows[0])
             }
         }
         else {
